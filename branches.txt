@@ -1,0 +1,13 @@
+Hey team!
+Since we are going to work with branches, 
+remember to create one always
+with the command "git checkout -b nameOfTheBranch"
+
+Make sure to use it to commit the changes
+
+After commiting, delete it using "git branch -d branchUsed"
+
+Create another branch and repeat the process
+
+If you want to update the files, use: "git pull origin main"
+and "git fetch origin" if you want to check the changes first
