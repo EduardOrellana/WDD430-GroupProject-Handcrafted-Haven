@@ -4,7 +4,7 @@ import Image from 'next/image'
 export default function Logo() {
     return (
         <div className={styles.logo}>
-            < Image
+            <Image
                 src="/angel.png"
                 width={100}
                 height={100}

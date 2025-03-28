@@ -1,13 +1,13 @@
-//import Image from "next/image";
-import React from "react";
-import styles from "./page.module.css";
-import Header from "./ui/header";
 
+import SellerList from "./ui/home-seller-list"
+import CategoryList from "./ui/home-category-list"
 
 export default function Home() {
   return (
-    <div className={styles.app}>
-      <Header />
-    </div>
-  );
+    <>
+      
+      <SellerList />
+      <CategoryList />
+    </>
+  )
 }
