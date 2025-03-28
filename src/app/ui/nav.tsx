@@ -5,11 +5,11 @@ export default function Navigation() {
         <nav className={styles.nav}>
             <ul>
                 <li><a href="#">Home</a></li>
-                <li><a href="#">Link 1</a></li>
-                <li><a href="#">Link 2</a></li>
-                <li><a href="#">Link 3</a></li>
-                <li><a href="#">Link 4</a></li>
-                <li><a href="#">Link 5</a></li>
+                <li><a href="#">Products</a></li>
+                <li><a href="#">Account</a></li>
+                <li><a href="#">Seller Hub</a></li>
+                <li><a href="#">Community</a></li>
+                <li><a href="#">About</a></li>
             </ul>
         </nav>
     )

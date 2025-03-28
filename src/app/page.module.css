@@ -15,7 +15,6 @@ body {
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: auto 1fr 10%;
   gap: 10px;
-  padding: 10px;
 }
 
 /******End of Overall app layout**********/
@@ -25,6 +24,21 @@ body {
   grid-column: 1 / -1;
   grid-row: 1 / 2;
   width: 100%;
+}
+
+.headerBackground {
+  grid-row: 1 / 2;
+  width: 100%;
+  height: 200px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url('/../banner.webp');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: -1;
+  opacity: .40;
 }
 
 .logo {
