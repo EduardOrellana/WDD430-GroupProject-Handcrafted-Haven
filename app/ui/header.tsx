@@ -1,6 +1,8 @@
-import Logo from "@/app/ui/haven-logo";
+'use client'
+
+import Logo from "./haven-logo";
 import Navigation from "./nav";
-import styles from "@/app/page.module.css"
+import styles from "../page.module.css"
 
 export default function Header() {
     return (

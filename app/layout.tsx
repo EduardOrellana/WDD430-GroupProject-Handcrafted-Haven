@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/app/ui/header";
+import Header from "./ui/header";
 import Footer from "./ui/footer";
-import styles from "@/app/page.module.css"
+import styles from "./page.module.css"
 import Search from "./ui/search"
 
 export const metadata: Metadata = {
