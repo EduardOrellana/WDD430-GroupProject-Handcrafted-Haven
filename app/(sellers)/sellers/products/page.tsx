@@ -1,5 +1,5 @@
 import styles from "./product.module.css";
-export const products = [
+const products = [
   {
     id: 1,
     title: "Product 1",
@@ -30,7 +30,7 @@ export const products = [
   },
 ];
 
-export default function ProdutList() {
+export default function SellerProdutList() {
   const list = products.concat(products).concat(products);
   return (
     <div className={styles.productlist}>
