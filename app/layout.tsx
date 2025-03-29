@@ -1,10 +1,9 @@
-
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/app/ui/header";
 import Footer from "./ui/footer";
-import styles from "@/app/page.module.css"
-import Search from "./ui/search"
+import styles from "@/app/page.module.css";
+import Search from "./ui/search";
 
 export const metadata: Metadata = {
   title: "Heavenly Haven Art Store",
@@ -18,13 +17,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className={styles.body}>
         <div className={styles.app}>
           <Header />
           <Search />
-          <main className={styles.main}>
-            {children}
-          </main>
+          <main className={styles.main}>{children}</main>
           <Footer />
         </div>
       </body>

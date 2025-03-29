@@ -1,17 +1,16 @@
-
-import styles from '@/app/page.module.css'
-
+import styles from "@/app/page.module.css";
+import Link from "next/link";
 export default function Navigation() {
-    return (
-        <nav className={styles.nav}>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/sellers">Sellers</a></li>
-                <li><a href="#">Link 2</a></li>
-                <li><a href="#">Link 3</a></li>
-                <li><a href="#">Link 4</a></li>
-                <li><a href="#">Link 5</a></li>
-            </ul>
-        </nav>
-    )
+  return (
+    <nav className={styles.nav}>
+      <ul>
+        <Link href="/">Home</Link>
+        <Link href="/sellers">Sellers</Link>
+        <Link href="#">Link 2</Link>
+        <Link href="#">Link 3</Link>
+        <Link href="#">Link 4</Link>
+        <Link href="#">Link 5</Link>
+      </ul>
+    </nav>
+  );
 }
