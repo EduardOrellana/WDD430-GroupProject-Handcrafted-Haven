@@ -63,12 +63,14 @@
 
 .nav ul {
   display: flex;
+  justify-content: space-between;
   list-style: none;
   background-color: #230C33;
 }
 
 .nav ul li {
   flex: auto;
+  font-size: 1.5rem;
   text-align: center;
   padding: 10px 0 10px 0;
 }
@@ -76,6 +78,8 @@
 .nav ul li:hover {
   background-color: #9984D4;
   color: #230C33;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
 }
 
 
@@ -107,3 +111,26 @@
 }
 
 /******End of Footer**********/
+
+/******Log In**********/
+.loginContainer {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+
+.loginButton, .registerButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.loginButton:hover {
+  background-color: #0056b3;
+  cursor: pointer;
+}

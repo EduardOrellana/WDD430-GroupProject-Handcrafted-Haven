@@ -15,12 +15,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = typeof window !== "undefined" && window.location.pathname === "/login";
+
   return (
     <html lang="en">
       <body className={styles.body}>
         <div className={styles.app}>
           <Header />
-          <Search />
+          {!pathname && <Search />}
           <main className={styles.main}>{children}</main>
           <Footer />
         </div>
