@@ -9,6 +9,19 @@ const dummyProduct = {
   seller: 'Rose Potter',
 };
 
+export default async function ProductPage({
+  params,
+}: {
+  params: { productId: string; userId: string };
+}) {
+  return (
+    <main className="p-4 max-w-2xl mx-auto">
+      <ProductDetail product={dummyProduct} />
+      <Reviews productId={params.productId} />
+    </main>
+  );
+}
+/*
 export default function ProductPage({ params }: { params: { productId: string, userId: string } }) {
   return (
     <main>
@@ -16,4 +29,4 @@ export default function ProductPage({ params }: { params: { productId: string, u
       <Reviews productId={params.productId} />
     </main>
   );
-}
+}*/
