@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
 
 /*******Global*********/
-body {
+.body {
   background-color: #c2ffe757;
 }
 
@@ -94,10 +94,36 @@ body {
 .nav ul li:hover {
   background-color: #9984D4;
   color: #230C33;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
 }
 
 
 /******End of Navigation**********/
+
+/******Log In**********/
+.loginContainer {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+
+.loginButton,
+.registerButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.loginButton:hover {
+  background-color: #0056b3;
+  cursor: pointer;
+}
 
 /******Big Screen Size**********/
 @media (min-width: 700px) {
