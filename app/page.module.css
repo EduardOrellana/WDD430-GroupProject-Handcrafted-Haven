@@ -2,9 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
 
 
-:root {
-  --varBackground: azure;
-}
 /*******Global Mobile View*********/
 .body {
   font-family: 'Lavishly', sans-serif;
@@ -22,7 +19,7 @@
 /*******Logo*********/
 .header {
   display: block;
-  background-color: var(--varBackground);
+  background-color: azure;
 }
 
 .h1 {
