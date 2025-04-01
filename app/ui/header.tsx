@@ -1,3 +1,4 @@
+'use client'
 
 import Logo from "@/app/ui/haven-logo";
 import Navigation from "@/app/ui/nav";
@@ -12,6 +13,7 @@ export default function Header() {
                 <Link href={"signup"} className={styles.registerButton}>Sign Up</Link>
             </div>
             <header className={styles.header}>
+                <div className={styles.headerBackground}></div>
                 <Logo />
                 <Navigation />
             </header>
