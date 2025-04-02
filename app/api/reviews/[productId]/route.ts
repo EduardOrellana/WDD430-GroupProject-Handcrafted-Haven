@@ -1,15 +1,19 @@
 import { NextResponse } from 'next/server';
-import clientPromise from '../../../lib/mongodb';
+import type { NextRequest } from 'next/server';
+import clientPromise from '../../../lib/mongodb'; 
 
 export async function GET(
-  request: Request,
-  { params }: { params: { productId: string } }
+  request: NextRequest,
+  context: { params: { productId: string } }
 ) {
+  const productId = context.params.productId;
+
   const client = await clientPromise;
   const db = client.db('handcrafted');
+
   const reviews = await db
     .collection('reviews')
-    .find({ productId: params.productId })
+    .find({ productId })
     .sort({ createdAt: -1 })
     .toArray();
 
