@@ -38,7 +38,7 @@ export default function UserProdutList() {
     <div className={styles.productlist}>
       {list.map((product, index) => (
         <div className={styles.productCard} key={index}>
-          <Image src={product.imageUrl} alt={product.title} />
+          <Image src={product.imageUrl} alt={product.title} width={150} height={150} priority/>
           <h3>{product.title}</h3>
           <p>{product.description}</p>
           <span className="price">{product.price}</span>
