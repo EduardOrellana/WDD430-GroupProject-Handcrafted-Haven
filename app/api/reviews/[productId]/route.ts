@@ -1,21 +1,37 @@
 import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-import clientPromise from '../../../lib/mongodb'; 
+import clientPromise from '../../../lib/mongodb';
 
-export async function GET(
-  request: NextRequest,
-  context: { params: { productId: string } }
-) {
-  const productId = context.params.productId;
+export async function GET(req: Request) {
+  try {
+    const url = new URL(req.url);
+    const segments = url.pathname.split('/');
+    const productId = segments[segments.length - 1];
 
-  const client = await clientPromise;
-  const db = client.db('handcrafted');
+    // 1. Connect to the MongoDB client
+    const client = await clientPromise;
 
-  const reviews = await db
-    .collection('reviews')
-    .find({ productId })
-    .sort({ createdAt: -1 })
-    .toArray();
+    // 2. Select your database and collection
+    const db = client.db('handcrafted');
+    const reviewsCollection = db.collection('reviews');
 
-  return NextResponse.json(reviews);
+    // 3. Query reviews for the given productId
+    const reviews = await reviewsCollection
+      .find({ productId })
+      .sort({ createdAt: -1 })
+      .toArray();
+
+    // 4. Return the reviews
+    return NextResponse.json({
+      message: `Fetched ${reviews.length} reviews for product ID: ${productId}`,
+      productId,
+      reviews,
+    });
+
+  } catch (error) {
+    console.error('Error fetching reviews:', error);
+    return NextResponse.json(
+      { error: 'Something went wrong while fetching reviews.' },
+      { status: 500 }
+    );
+  }
 }
