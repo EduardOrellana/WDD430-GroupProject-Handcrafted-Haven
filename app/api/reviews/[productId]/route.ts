@@ -1,21 +1,13 @@
+import { sql } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-import clientPromise from '../../../lib/mongodb'; 
 
 export async function GET(
-  request: NextRequest,
-  context: { params: { productId: string } }
+  _req: Request,
+  { params }: { params: { productId: string } }
 ) {
-  const productId = context.params.productId;
-
-  const client = await clientPromise;
-  const db = client.db('handcrafted');
-
-  const reviews = await db
-    .collection('reviews')
-    .find({ productId })
-    .sort({ createdAt: -1 })
-    .toArray();
-
-  return NextResponse.json(reviews);
+  const { rows } = await sql`
+    SELECT * FROM reviews WHERE product_id = ${params.productId}
+    ORDER BY created_at DESC
+  `;
+  return NextResponse.json(rows);
 }

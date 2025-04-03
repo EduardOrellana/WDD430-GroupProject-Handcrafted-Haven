@@ -3,53 +3,49 @@
 import { useEffect, useState } from 'react';
 
 type Review = {
-  productId: string;
-  review: string;
-  createdAt: string;
+  id: number;
+  content: string;
+  rating: number;
 };
 
 export default function Reviews({ productId }: { productId: string }) {
-  const [reviews, setReviews] = useState<string[]>([]);
-  const [review, setReview] = useState('');
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [newReview, setNewReview] = useState('');
 
   useEffect(() => {
     fetch(`/api/reviews/${productId}`)
       .then(res => res.json())
-      .then((data: Review[]) => {
-        const reviewTexts = data.map((r) => r.review);
-        setReviews(reviewTexts);
-      })
-      .catch(err => console.error('Failed to fetch reviews:', err));
+      .then(setReviews);
   }, [productId]);
 
   const handleSubmit = async () => {
-    if (!review.trim()) return;
+    if (!newReview.trim()) return;
 
     await fetch('/api/reviews', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ productId, review }),
+      body: JSON.stringify({ productId, content: newReview }),
     });
 
-    setReviews(prev => [review, ...prev]);
-    setReview('');
+    setReviews(prev => [{ id: Date.now(), content: newReview, rating: 5 }, ...prev]);
+    setNewReview('');
   };
 
   return (
     <section>
       <h2>Reviews</h2>
       <textarea
-        value={review}
-        onChange={(e) => setReview(e.target.value)}
-        placeholder="Write your review..."
-        rows={4}
+        value={newReview}
+        onChange={(e) => setNewReview(e.target.value)}
+        rows={3}
+        placeholder="Write a review..."
       />
       <br />
-      <button onClick={handleSubmit}>Submit Review</button>
+      <button onClick={handleSubmit}>Submit</button>
 
       <ul>
-        {reviews.map((r, i) => (
-          <li key={i}>{r}</li>
+        {reviews.map((r) => (
+          <li key={r.id}>{r.content}</li>
         ))}
       </ul>
     </section>
