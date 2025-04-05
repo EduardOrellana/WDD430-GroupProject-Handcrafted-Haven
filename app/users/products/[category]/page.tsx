@@ -1,6 +1,6 @@
 // app/users/products/[id]/page.tsx
 
-import styles from "../../product.module.css";
+import styles from "./product.module.css";
 import Image from "next/image";
 
 const products = [
