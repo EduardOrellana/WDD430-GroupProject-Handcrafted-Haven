@@ -36,7 +36,7 @@ export default function CategoryList() {
             <ul> 
             {categoriesDommyData.map((category, index) => (
                 <li className="card" key={index}>
-                    <Link href={`/users/products/category/${category.title}`}>
+                    <Link href={`/users/products/${category.title}`}>
                         {category.title}
                     </Link>
                 </li>

@@ -46,12 +46,12 @@ const products = [
   },
 ];
 
-export default async function UserProductListByCategory({ params }: { params: { id: string } }) {
+export default function UserProductListByCategory({ params }: { params: { category: string } }) {
 
-  const category = await params.id;
+  const _category = params.category;
 
   const list = products.filter(
-    (product) => product.category.toLowerCase() === category.toLowerCase()
+    (product) => product.category.toLowerCase() === _category.toLowerCase()
   );
 
   if (list.length === 0) {
