@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/app/ui/header";
+import Header from "./ui/header";
 import Footer from "./ui/footer";
-import styles from "@/app/page.module.css";
-import Search from "./ui/search";
+import styles from "./page.module.css"
+import Search from "./ui/search"
 
 export const metadata: Metadata = {
   title: "Heavenly Haven Art Store",
@@ -15,15 +15,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  // const pathname = typeof window !== "undefined" && window.location.pathname === "/login";
+  // const isLoginPage = pathname === "/login";
+  // const isSearchPage = pathname === "/search";
   return (
     <html lang="en">
       <body className={styles.body}>
-        <div className={styles.app}>
-          <Header />
-          <Search />
-          <main className={styles.main}>{children}</main>
-          <Footer />
-        </div>
+        <Header />
+        {/* {!pathname && <Search />} */}
+        <main className={styles.main}>
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );
