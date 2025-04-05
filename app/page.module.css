@@ -100,8 +100,57 @@
   cursor: pointer;
 }
 
-
 /******End of Navigation**********/
+
+/******Main**********/
+.main {
+  margin: 0 .75rem;
+}
+
+.homeCards {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.homeCards p {
+  text-align: center;
+  padding: 1.5rem;
+  position: relative;
+  left: 5;
+  top: -300;
+  color: white;
+}
+
+
+/******End of Main**********/
+
+/******Main**********/
+.search {
+  width: 100%;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.searchIcon {
+  color: black;
+  position: absolute;
+  top: 12;
+  align-self: center;
+  padding: 1px;
+}
+
+.search input {
+  width: 80%;
+  height: 2rem;
+  padding-left: 2rem;
+}
+
+/******End of Main**********/
 
 /******Log In**********/
 .loginContainer {
@@ -154,17 +203,14 @@
   .main {
     grid-row: 2 / 3;
     grid-column: 1 / -1;
-    justify-self: center;
   }
 
   /******End of Search**********/
 
   /******Main**********/
-  .main {
-    align-self: center;
+  /* .main {
     display: flex;
-    justify-content: space-between;
-  }
+  } */
 
   /******End of Main**********/
 

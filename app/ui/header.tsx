@@ -4,8 +4,10 @@ import Logo from "@/app/ui/haven-logo";
 import Navigation from "@/app/ui/nav";
 import styles from "@/app/page.module.css"
 import Link from "next/link";
+import Search from "./search"
 
 export default function Header() {
+    const pathname = typeof window !== "undefined" && window.location.pathname === "/login";
     return (
         <>
             <div className={styles.loginContainer}>
@@ -16,6 +18,7 @@ export default function Header() {
                 <div className={styles.headerBackground}></div>
                 <Logo />
                 <Navigation />
+                {!pathname && <Search />}
             </header>
         </>
     )
