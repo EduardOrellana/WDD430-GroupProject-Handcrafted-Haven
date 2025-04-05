@@ -46,9 +46,9 @@ const products = [
   },
 ];
 
-export default async function UserProductListByCategory({ params }: { params: { category: string } }) {
+export default async function UserProductListByCategory({ params }: { params: Promise<{ category: string }> }) {
 
-  const { category } = await Promise.resolve(params);
+  const { category } =  await params;
 
   const list = products.filter(
     (product) => product.category.toLowerCase() === category.toLowerCase()
