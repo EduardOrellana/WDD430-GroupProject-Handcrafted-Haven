@@ -9,11 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "mongodb": "^6.15.0",
-=======
     "clsx": "^2.1.1",
->>>>>>> c20f61509afd78d5fa17089d4b464dc241582bec
+    "force": "^0.0.3",
     "next": "15.2.3",
     "next-auth": "^4.24.11",
     "react": "^19.0.0",
