@@ -1,7 +1,7 @@
 'use client';
 
 import Link from "next/link";
-import styles from "@/app/(sellers)/sellers/sellers.module.css";
+import styles from "./sellers.module.css";
 
 export default function Home() {
   return (

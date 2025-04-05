@@ -7,16 +7,33 @@
   font-family: 'Lavishly', sans-serif;
   background-color: #f0f0f0;
   color: #333;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
-  /* display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: repeat(3, auto); */
+
   gap: 20px;
 }
 
+/*Main*/
 
-/*******Logo*********/
+.main {
+  text-align: center;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+/*Template of Lists*/
+
+.main li {
+  list-style: none;
+  padding: 10px;
+  margin: 5px 0;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+
 .header {
   display: block;
   background-color: azure;
@@ -55,6 +72,11 @@
   display: none;
 }
 
+.activePage::before {
+  content: '🔔';
+  color: #4CAF50;
+}
+
 /* Clase para mostrar el nav */
 .show {
   display: flex;
@@ -65,55 +87,6 @@
   text-align: right;
 }
 
-.productlist {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 20px;
-  padding: 20px;
-  justify-items: center;
-  background-color: var(--varBackground);
-}
-
-.productCard {
-  background: white;
-  border-radius: 10px;
-  padding: 15px;
-  text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  max-width: 200px;
-}
-
-.productCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-}
-
-.productCard img {
-  width: 100%;
-  border-radius: 10px;
-}
-
-.productCard h3 {
-  font-family: 'Merriweather', serif;
-  font-size: 1.2rem;
-  color: #333;
-  margin: 10px 0;
-}
-
-.productCard p {
-  font-family: 'Merriweather Sans', sans-serif;
-  font-size: 0.9rem;
-  color: #666;
-}
-
-.price {
-  display: block;
-  font-weight: bold;
-  font-size: 1.1rem;
-  color: #27ae60;
-  margin-top: 5px;
-}
 
 .titleLogin {
   text-align: center;
@@ -163,6 +136,36 @@
   background-color: #45a049;
 }
 
+/*Home Page Design.*/
+.home {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 1200px;
+  justify-content: center;
+  align-content: center ;
+}
+
+.home div {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+
+/*Search Button*/
+.search {
+  margin: 0 auto;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+}
+
 /******Big Screen Size**********/
 @media screen and (min-width: 700px) {
 
@@ -179,8 +182,10 @@
     gap: 15px;
     text-align: right;
   }
-  
 
+  .search {
+    text-align: right;
+  }
   
 }
 
