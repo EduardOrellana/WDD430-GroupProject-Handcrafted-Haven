@@ -2,49 +2,10 @@
 
 import styles from "./product.module.css";
 import Image from "next/image";
+import { productsObject } from "@/app/lib/temporalData";
+import Link from "next/link";
 
-const products = [
-  {
-    id: 1,
-    title: "Product 1",
-    description: "This is a great product 1",
-    price: "$10.00",
-    imageUrl: "https://placehold.co/150x150.png",
-    category: "electronics",
-  },
-  {
-    id: 2,
-    title: "Product 2",
-    description: "This is a great product 2",
-    price: "$20.00",
-    imageUrl: "https://placehold.co/150x150.png",
-    category: "clothing",
-  },
-  {
-    id: 3,
-    title: "Product 3",
-    description: "This is a great product 3",
-    price: "$30.00",
-    imageUrl: "https://placehold.co/150x150.png",
-    category: "technology",
-  },
-  {
-    id: 4,
-    title: "Product 4",
-    description: "This is a great product 4",
-    price: "$40.00",
-    imageUrl: "https://placehold.co/150x150.png",
-    category: "games",
-  },
-  {
-    id: 5,
-    title: "Product 4",
-    description: "This is a great product 4",
-    price: "$40.00",
-    imageUrl: "https://placehold.co/150x150.png",
-    category: "games",
-  },
-];
+const products = productsObject;
 
 export default async function UserProductListByCategory({ params }: { params: Promise<{ category: string }> }) {
 
@@ -65,11 +26,14 @@ export default async function UserProductListByCategory({ params }: { params: Pr
   return (
     <div className={styles.productlist}>
       {list.map((product, index) => (
-        <div className="card" key={index}>
-          <Image src={product.imageUrl} alt={product.title} width={150} height={150} priority />
-          <h3>{product.title}</h3>
+        <div className={styles.productCard} key={index}>
+          <Image src={product.image} alt={product.name} width={150} height={150} priority />
+          <h3>{product.name}</h3>
           <p>{product.description}</p>
           <span className={styles.price}>{product.price}</span>
+          <Link href={`/users/product/${product.id}`} className={styles.productLink}>
+            view details
+          </Link>
         </div>
       ))}
     </div>

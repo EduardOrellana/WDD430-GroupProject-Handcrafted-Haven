@@ -13,10 +13,9 @@ export default function Search() {
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if (query.trim()) {
-            router.push(`users/productos/search?q=${encodeURIComponent(query)}`)
+            router.push(`users/products/?search=${encodeURIComponent(query)}`)
         }
     }
-
 
     return (
         <form onSubmit={handleSearch} className={styles.search}>

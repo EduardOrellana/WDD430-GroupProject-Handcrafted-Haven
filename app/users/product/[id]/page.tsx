@@ -1,22 +1,30 @@
 import styles from "@/app/users/product/[id]/product.module.css";
 
-const product = {
-  name: "Stylish Sunglasses",
-  price: 29.99,
-  rating: 4.5,
-  description:
-    "These stylish sunglasses are perfect for all seasons. Made with high-quality materials, they offer both comfort and protection from the sun.",
-  image: "https://placehold.co/600x400",
-  reviews: [
-    { text: "Great sunglasses, very comfortable!", author: "Alice" },
-    { text: "Love the design, but a little tight.", author: "Bob" },
-    { text: "Amazing quality, would buy again.", author: "Charlie" },
-  ],
-};
+import { productsObject } from "@/app/lib/temporalData";
+
+// const product = {
+//   name: "Stylish Sunglasses",
+//   price: 29.99,
+//   rating: 4.5,
+//   description:
+//     "These stylish sunglasses are perfect for all seasons. Made with high-quality materials, they offer both comfort and protection from the sun.",
+//   image: "https://placehold.co/600x400",
+//   reviews: [
+//     { text: "Great sunglasses, very comfortable!", author: "Alice" },
+//     { text: "Love the design, but a little tight.", author: "Bob" },
+//     { text: "Amazing quality, would buy again.", author: "Charlie" },
+//   ],
+// };
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   const id = params.id;
+
+  const product = productsObject.find((item) => item.id === parseInt(id));
+
+  if (!product) {
+    return <div className={styles.error}>Product not found</div>;
+  }
 
   return (
     <div className={styles.productDetail}>
