@@ -3,7 +3,6 @@ import "./globals.css";
 import Header from "./ui/header";
 import Footer from "./ui/footer";
 import styles from "./page.module.css"
-import Search from "./ui/search"
 
 export const metadata: Metadata = {
   title: "Heavenly Haven Art Store",
