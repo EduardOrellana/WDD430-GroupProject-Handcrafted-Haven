@@ -1,264 +1,401 @@
-export const productsObject = 
-[
-  {
-    "id": 1,
-    "name": "Stylish Sunglasses",
-    "price": 29.99,
-    "rating": 4.5,
-    "category": "Accessories",
-    "description": "These stylish sunglasses are perfect for all seasons. Made with high-quality materials, they offer both comfort and protection from the sun.",
-    "image": "https://placehold.co/600x400",
-    "reviews": [
-      { "text": "Great sunglasses, very comfortable!", "author": "Alice" },
-      { "text": "Love the design, but a little tight.", "author": "Bob" },
-      { "text": "Amazing quality, would buy again.", "author": "Charlie" }
-    ]
-  },
-  {
-    "id": 2,
-    "name": "Elegant Watch",
-    "price": 199.99,
-    "rating": 4.8,
-    "category": "Watches",
-    "description": "An elegant timepiece for every occasion. Precision engineering meets timeless design.",
-    "image": "https://placehold.co/600x400",
-    "reviews": [
-      { "text": "Absolutely stunning watch!", "author": "Daniel" },
-      { "text": "Works great and looks even better.", "author": "Eva" }
-    ]
-  },
-  {
-    "id": 3,
-    "name": "Wireless Headphones",
-    "price": 89.99,
-    "rating": 4.2,
-    "category": "Technology",
-    "description": "Experience true freedom with our wireless headphones. Superior sound and long-lasting battery.",
-    "image": "https://placehold.co/600x400",
-    "reviews": [
-      { "text": "Sound quality is top-notch.", "author": "Frank" },
-      { "text": "Good value for the price.", "author": "Grace" }
-    ]
-  },
-  {
-    "id": 4,
-    "name": "Luxury Leather Bag",
-    "price": 150.00,
-    "rating": 4.7,
-    "category": "Fashion",
-    "description": "A luxury leather bag designed for those who appreciate both style and functionality.",
-    "image": "https://placehold.co/600x400",
-    "reviews": [
-      { "text": "Beautifully crafted, highly recommend!", "author": "John" },
-      { "text": "The leather feels so soft!", "author": "Emily" }
-    ]
-  },
-  {
-    "id": 5,
-    "name": "Fitness Tracker Watch",
-    "price": 79.99,
-    "rating": 4.4,
-    "category": "Health & Fitness",
-    "description": "Track your fitness goals with ease using this stylish fitness tracker watch.",
-    "image": "https://placehold.co/600x400",
-    "reviews": [
-      { "text": "Helps me stay on track with my workouts.", "author": "Sophia" },
-      { "text": "Great features for the price!", "author": "Liam" }
-    ]
-  },
-  {
-    "id": 6,
-    "name": "Bluetooth Speaker",
-    "price": 49.99,
-    "rating": 4.3,
-    "category": "Audio",
-    "description": "Portable Bluetooth speaker with impressive sound quality and battery life.",
-    "image": "https://placehold.co/600x400",
-    "reviews": [
-      { "text": "Great for parties, sounds amazing!", "author": "Mia" },
-      { "text": "Very durable and easy to carry around.", "author": "Oliver" }
-    ]
-  },
+export const productsObject = [
   {
     "id": 7,
-    "name": "Gaming Mouse",
-    "price": 39.99,
-    "rating": 4.6,
-    "category": "Gaming",
-    "description": "High-precision gaming mouse with customizable buttons and RGB lighting.",
+    "name": "Product 7",
+    "price": 19.99,
+    "category": "Fashion",
+    "description": "Description for product 7. Trendy fashion item for any occasion.",
     "image": "https://placehold.co/600x400",
     "reviews": [
-      { "text": "Perfect for gaming, great responsiveness.", "author": "Ethan" },
-      { "text": "Super comfortable and accurate!", "author": "Ava" }
-    ]
+      {
+        "text": "Great design, very stylish!",
+        "author": "Nina",
+        "rating": 4.5
+      },
+      {
+        "text": "A bit expensive for what it offers.",
+        "author": "Oliver",
+        "rating": 3.0
+      }
+    ],
+    "ownerId": 207
   },
   {
     "id": 8,
-    "name": "Smartphone Stand",
-    "price": 19.99,
-    "rating": 4.1,
-    "category": "Accessories",
-    "description": "Adjustable smartphone stand for a hands-free experience.",
+    "name": "Product 8",
+    "price": 89.99,
+    "category": "Electronics",
+    "description": "Description for product 8. Top-quality electronics with the latest tech.",
     "image": "https://placehold.co/600x400",
     "reviews": [
-      { "text": "Great for video calls and watching movies.", "author": "Isabella" },
-      { "text": "Very sturdy and adjustable.", "author": "Jackson" }
-    ]
+      {
+        "text": "Amazing performance, worth every penny.",
+        "author": "Patricia",
+        "rating": 5.0
+      },
+      {
+        "text": "Good, but could use some improvements.",
+        "author": "Quinn",
+        "rating": 3.5
+      }
+    ],
+    "ownerId": 208
   },
   {
     "id": 9,
-    "name": "Cordless Vacuum Cleaner",
-    "price": 129.99,
-    "rating": 4.7,
-    "category": "Home Appliances",
-    "description": "Lightweight cordless vacuum cleaner with powerful suction.",
+    "name": "Product 9",
+    "price": 45.0,
+    "category": "Home",
+    "description": "Description for product 9. A stylish addition to your home.",
     "image": "https://placehold.co/600x400",
     "reviews": [
-      { "text": "Sucks up everything! Very convenient.", "author": "Lucas" },
-      { "text": "Works great on carpet and hardwood.", "author": "Amelia" }
-    ]
+      {
+        "text": "Looks great in my living room.",
+        "author": "Riley",
+        "rating": 4.2
+      },
+      {
+        "text": "A little too big for my space.",
+        "author": "Sam",
+        "rating": 3.0
+      }
+    ],
+    "ownerId": 209
   },
   {
     "id": 10,
-    "name": "Electric Toothbrush",
-    "price": 69.99,
-    "rating": 4.8,
-    "category": "Health & Beauty",
-    "description": "Rechargeable electric toothbrush with multiple brushing modes.",
+    "name": "Product 10",
+    "price": 129.99,
+    "category": "Sports",
+    "description": "Description for product 10. For those who take their sports seriously.",
     "image": "https://placehold.co/600x400",
     "reviews": [
-      { "text": "My teeth feel so clean, love it!", "author": "Charlotte" },
-      { "text": "Very easy to use and effective.", "author": "William" }
-    ]
+      {
+        "text": "Excellent gear for athletes!",
+        "author": "Taylor",
+        "rating": 5.0
+      },
+      {
+        "text": "Quality is good but too expensive.",
+        "author": "Uma",
+        "rating": 3.5
+      }
+    ],
+    "ownerId": 210
   },
   {
     "id": 11,
-    "name": "Leather Wallet",
-    "price": 34.99,
-    "rating": 4.4,
-    "category": "Fashion",
-    "description": "Classic leather wallet with multiple card slots and a coin pocket.",
+    "name": "Product 11",
+    "price": 60.0,
+    "category": "Beauty",
+    "description": "Description for product 11. High-quality beauty product for radiant skin.",
     "image": "https://placehold.co/600x400",
     "reviews": [
-      { "text": "Nice quality leather and feels premium.", "author": "Oliver" },
-      { "text": "Perfect size for everyday use.", "author": "Ella" }
-    ]
+      {
+        "text": "The best beauty product I've used.",
+        "author": "Vera",
+        "rating": 5.0
+      },
+      {
+        "text": "Not much of a difference after using it.",
+        "author": "Will",
+        "rating": 2.5
+      }
+    ],
+    "ownerId": 211
   },
   {
     "id": 12,
-    "name": "LED Desk Lamp",
-    "price": 39.99,
-    "rating": 4.5,
-    "category": "Home Appliances",
-    "description": "Energy-efficient LED desk lamp with adjustable brightness.",
+    "name": "Product 12",
+    "price": 20.0,
+    "category": "Toys",
+    "description": "Description for product 12. Fun, safe, and engaging toys for children.",
     "image": "https://placehold.co/600x400",
     "reviews": [
-      { "text": "Great light for working at night.", "author": "Benjamin" },
-      { "text": "Nice and adjustable, very handy.", "author": "Amelia" }
-    ]
+      {
+        "text": "My kids love this toy, they play with it every day!",
+        "author": "Xander",
+        "rating": 4.8
+      },
+      {
+        "text": "Not durable enough for the price.",
+        "author": "Yara",
+        "rating": 3.0
+      }
+    ],
+    "ownerId": 212
   },
   {
     "id": 13,
-    "name": "Sports Shoes",
-    "price": 79.99,
-    "rating": 4.6,
-    "category": "Footwear",
-    "description": "Durable sports shoes designed for comfort and performance.",
+    "name": "Product 13",
+    "price": 75.0,
+    "category": "Fashion",
+    "description": "Description for product 13. A versatile piece for any wardrobe.",
     "image": "https://placehold.co/600x400",
     "reviews": [
-      { "text": "Perfect for running, very comfortable.", "author": "Lucas" },
-      { "text": "Great grip and support for sports.", "author": "Grace" }
-    ]
+      {
+        "text": "Perfect fit, very comfortable.",
+        "author": "Zane",
+        "rating": 4.6
+      },
+      {
+        "text": "The color faded after washing.",
+        "author": "Amara",
+        "rating": 2.8
+      }
+    ],
+    "ownerId": 213
   },
   {
     "id": 14,
-    "name": "Winter Coat",
-    "price": 120.00,
-    "rating": 4.7,
-    "category": "Fashion",
-    "description": "Warm winter coat made from high-quality materials.",
+    "name": "Product 14",
+    "price": 54.99,
+    "category": "Electronics",
+    "description": "Description for product 14. A must-have electronic device for tech lovers.",
     "image": "https://placehold.co/600x400",
     "reviews": [
-      { "text": "Keeps me warm even in the coldest weather.", "author": "Mia" },
-      { "text": "Stylish and functional.", "author": "Jack" }
-    ]
+      {
+        "text": "Works perfectly, very satisfied.",
+        "author": "Bella",
+        "rating": 5.0
+      },
+      {
+        "text": "Good, but the battery life could be longer.",
+        "author": "Cleo",
+        "rating": 3.5
+      }
+    ],
+    "ownerId": 214
   },
   {
     "id": 15,
-    "name": "Smart Thermostat",
-    "price": 199.99,
-    "rating": 4.8,
-    "category": "Home Appliances",
-    "description": "Smart thermostat that saves energy and keeps your home comfortable.",
+    "name": "Product 15",
+    "price": 40.0,
+    "category": "Home",
+    "description": "Description for product 15. Perfect for home decor enthusiasts.",
     "image": "https://placehold.co/600x400",
     "reviews": [
-      { "text": "Easy to use and very effective.", "author": "Sophie" },
-      { "text": "Helps save on energy bills.", "author": "Ryan" }
-    ]
+      {
+        "text": "Really enhances my living space.",
+        "author": "Dante",
+        "rating": 4.7
+      },
+      {
+        "text": "Looks great, but the quality is just average.",
+        "author": "Elle",
+        "rating": 3.0
+      }
+    ],
+    "ownerId": 215
   },
   {
     "id": 16,
-    "name": "Portable Charger",
-    "price": 39.99,
-    "rating": 4.4,
-    "category": "Technology",
-    "description": "Compact portable charger to keep your devices powered on the go.",
+    "name": "Product 16",
+    "price": 99.99,
+    "category": "Sports",
+    "description": "Description for product 16. Ideal for competitive sports enthusiasts.",
     "image": "https://placehold.co/600x400",
     "reviews": [
-      { "text": "Very convenient for traveling.", "author": "Olivia" },
-      { "text": "Charges my phone quickly.", "author": "Ethan" }
-    ]
+      {
+        "text": "Amazing quality, very durable.",
+        "author": "Freya",
+        "rating": 5.0
+      },
+      {
+        "text": "Could be better for the price.",
+        "author": "Gavin",
+        "rating": 3.5
+      }
+    ],
+    "ownerId": 216
   },
   {
     "id": 17,
-    "name": "Gaming Headset",
-    "price": 59.99,
-    "rating": 4.5,
-    "category": "Gaming",
-    "description": "High-quality gaming headset with noise-canceling features and clear sound.",
+    "name": "Product 17",
+    "price": 19.0,
+    "category": "Beauty",
+    "description": "Description for product 17. A refreshing skincare product.",
     "image": "https://placehold.co/600x400",
     "reviews": [
-      { "text": "Great for long gaming sessions.", "author": "Noah" },
-      { "text": "The sound quality is amazing!", "author": "Emma" }
-    ]
+      {
+        "text": "It works wonders on my skin!",
+        "author": "Harley",
+        "rating": 4.9
+      },
+      {
+        "text": "Doesn't seem to work for my skin type.",
+        "author": "Isla",
+        "rating": 2.5
+      }
+    ],
+    "ownerId": 217
   },
   {
     "id": 18,
-    "name": "Tablet Stand",
-    "price": 24.99,
-    "rating": 4.3,
-    "category": "Accessories",
-    "description": "Sturdy tablet stand for hands-free use at home or on the go.",
+    "name": "Product 18",
+    "price": 12.0,
+    "category": "Toys",
+    "description": "Description for product 18. Engaging educational toy for toddlers.",
     "image": "https://placehold.co/600x400",
     "reviews": [
-      { "text": "Perfect for watching videos and reading.", "author": "James" },
-      { "text": "Very portable and lightweight.", "author": "Sophia" }
-    ]
+      {
+        "text": "My toddlers love it!",
+        "author": "Jack",
+        "rating": 5.0
+      },
+      {
+        "text": "Not as fun as I expected.",
+        "author": "Kara",
+        "rating": 3.0
+      }
+    ],
+    "ownerId": 207
   },
   {
     "id": 19,
-    "name": "Electric Kettle",
-    "price": 39.99,
-    "rating": 4.6,
-    "category": "Home Appliances",
-    "description": "Quick-boiling electric kettle for your tea and coffee needs.",
+    "name": "Product 19",
+    "price": 30.0,
+    "category": "Fashion",
+    "description": "Description for product 19. A stylish and comfortable addition to any wardrobe.",
     "image": "https://placehold.co/600x400",
     "reviews": [
-      { "text": "Boils water quickly, very convenient.", "author": "Aiden" },
-      { "text": "Love the auto-shutoff feature.", "author": "Lily" }
-    ]
+      {
+        "text": "Perfect for casual outings.",
+        "author": "Lana",
+        "rating": 4.8
+      },
+      {
+        "text": "The fit was a bit off for me.",
+        "author": "Mike",
+        "rating": 3.0
+      }
+    ],
+    "ownerId": 207
   },
   {
     "id": 20,
-    "name": "Blender",
-    "price": 79.99,
-    "rating": 4.5,
-    "category": "Kitchen Appliances",
-    "description": "Powerful blender for smoothies, soups, and more.",
+    "name": "Product 20",
+    "price": 110.0,
+    "category": "Electronics",
+    "description": "Description for product 20. High-end electronics for the discerning customer.",
     "image": "https://placehold.co/600x400",
     "reviews": [
-      { "text": "Makes smoothies so smooth!", "author": "Benjamin" },
-      { "text": "Great for quick meal prep.", "author": "Zoe" }
-    ]
+      {
+        "text": "Top-notch performance, very satisfied.",
+        "author": "Nina",
+        "rating": 5.0
+      },
+      {
+        "text": "A little too expensive for my taste.",
+        "author": "Owen",
+        "rating": 3.5
+      }
+    ],
+    "ownerId": 207
+  },
+  {
+    "id": 21,
+    "name": "Product 21",
+    "price": 17.0,
+    "category": "Home",
+    "description": "Description for product 21. Perfect for home improvement projects.",
+    "image": "https://placehold.co/600x400",
+    "reviews": [
+      {
+        "text": "Very useful and easy to use.",
+        "author": "Paul",
+        "rating": 4.6
+      },
+      {
+        "text": "Could use some more features.",
+        "author": "Quincy",
+        "rating": 3.5
+      }
+    ],
+    "ownerId": 207
+  },
+  {
+    "id": 22,
+    "name": "Product 22",
+    "price": 55.0,
+    "category": "Sports",
+    "description": "Description for product 22. A reliable product for any sports enthusiast.",
+    "image": "https://placehold.co/600x400",
+    "reviews": [
+      {
+        "text": "Perfect for my needs, very durable.",
+        "author": "Rita",
+        "rating": 5.0
+      },
+      {
+        "text": "Good, but too bulky for my liking.",
+        "author": "Steve",
+        "rating": 3.0
+      }
+    ],
+    "ownerId": 222
+  },
+  {
+    "id": 23,
+    "name": "Product 23",
+    "price": 80.0,
+    "category": "Beauty",
+    "description": "Description for product 23. Luxurious beauty product for radiant skin.",
+    "image": "https://placehold.co/600x400",
+    "reviews": [
+      {
+        "text": "A game-changer for my skincare routine.",
+        "author": "Tina",
+        "rating": 5.0
+      },
+      {
+        "text": "Not worth the high price tag.",
+        "author": "Uma",
+        "rating": 2.5
+      }
+    ],
+    "ownerId": 223
+  },
+  {
+    "id": 24,
+    "name": "Product 24",
+    "price": 90.0,
+    "category": "Toys",
+    "description": "Description for product 24. An educational toy for kids with tons of features.",
+    "image": "https://placehold.co/600x400",
+    "reviews": [
+      {
+        "text": "My kids absolutely love it!",
+        "author": "Vera",
+        "rating": 4.7
+      },
+      {
+        "text": "The toy broke after a few uses.",
+        "author": "Will",
+        "rating": 2.5
+      }
+    ],
+    "ownerId": 224
+  },
+  {
+    "id": 25,
+    "name": "Product 25",
+    "price": 110.0,
+    "category": "Fashion",
+    "description": "Description for product 25. An elegant addition to your wardrobe.",
+    "image": "https://placehold.co/600x400",
+    "reviews": [
+      {
+        "text": "Great quality and design.",
+        "author": "Xander",
+        "rating": 4.8
+      },
+      {
+        "text": "A bit too expensive for what it is.",
+        "author": "Yara",
+        "rating": 3.2
+      }
+    ],
+    "ownerId": 225
   }
 ]
