@@ -2,7 +2,8 @@ import postgres from 'postgres';
  
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
  
-export async function productSearch(name: string) {
+
+export async function getCategories() {
   try {
     if (!process.env.POSTGRES_URL) {
       console.error('POSTGRES_URL environment variable is not defined.');
@@ -10,33 +11,188 @@ export async function productSearch(name: string) {
     }
     const data = await sql`
         SELECT
-            p.id AS product_id,
-            p.name AS product_name,
-            p.price AS product_price,
-            p.description AS product_description,
-            p.images AS product_images,
-            u.id AS user_id,
-            u.username AS user_username,
-            u.email AS user_email,
-            u.password AS user_password,
-            u.profile_pic_url AS user_profile_pic,
-            r.id AS review_id,
-            r.date AS review_date,
-            r.content AS review_content,
-            r.rating AS review_rating,
-            c.id AS category_id,
-            c.name AS category_name
+          *
         FROM
-            "product" p
-        JOIN
-            "user" u ON p.user_id = u.id
-        LEFT JOIN
-            "review" r ON p.ID = r.product_id
-        RIGHT JOIN
-            "category" c ON p.category_id = c.id
-        WHERE
-            p.name = ${name};
+          "category";
     `;
+    console.log('Query result:', data);
+    return data;
+  } catch (error) {
+    console.error('Database query error:', error);
+    return { error: (error as Error).message, status: 500 };
+  }
+}
+
+export async function productSearchByName(name: string) {
+  try {
+    if (!process.env.POSTGRES_URL) {
+      console.error('POSTGRES_URL environment variable is not defined.');
+      return { error: 'Database connection string is missing.', status: 500 };
+    }
+    const data = await sql`
+        select
+          p.id,
+          p.name,
+          p.price,
+          p.description,
+          p.images,
+          c.name AS category,
+          u.username AS "owner"
+        from
+          "product" p
+        right join
+          "user" u
+        on
+          p.user_id = u.id
+        left join
+          "category" c
+        on
+          p.category_id = c.id
+        where
+          p.name ILIKE ${'%' + name + '%'};
+    `;
+    console.log('Query result:', data);
+    return data;
+  } catch (error) {
+    console.error('Database query error:', error);
+    return { error: (error as Error).message, status: 500 };
+  }
+}
+
+export async function productSearchByCategory(category_id: number) {
+  try {
+    if (!process.env.POSTGRES_URL) {
+      console.error('POSTGRES_URL environment variable is not defined.');
+      return { error: 'Database connection string is missing.', status: 500 };
+    }
+    const data = await sql`
+        select
+          p.id,
+          p.name,
+          p.price,
+          p.description,
+          p.images,
+          u.username AS "owner"
+        from
+          "product" p
+        right join
+          "user" u
+        on
+          p.user_id = u.id
+        where
+          p.category_id = ${category_id};
+    `;
+    console.log('Query result:', data);
+    return data;
+  } catch (error) {
+    console.error('Database query error:', error);
+    return { error: (error as Error).message, status: 500 };
+  }
+}
+
+export async function productSearchByUser(user_id: number) {
+  try {
+    if (!process.env.POSTGRES_URL) {
+      console.error('POSTGRES_URL environment variable is not defined.');
+      return { error: 'Database connection string is missing.', status: 500 };
+    }
+    const data = await sql`
+        select
+          p.id,
+          p.name,
+          p.price,
+          p.description,
+          p.images,
+          c.name AS category
+        from
+          "product" p
+        left join
+          "category" c
+        on
+          p.category_id = c.id
+        where
+          p.user_id = ${user_id};
+    `;
+    console.log('Query result:', data);
+    return data;
+  } catch (error) {
+    console.error('Database query error:', error);
+    return { error: (error as Error).message, status: 500 };
+  }
+}
+
+export async function getProductById(id: number) {
+  try {
+    if (!process.env.POSTGRES_URL) {
+      console.error('POSTGRES_URL environment variable is not defined.');
+      return { error: 'Database connection string is missing.', status: 500 };
+    }
+    const data = await sql`
+        select
+          p.name,
+          p.price,
+          p.description,
+          p.images,
+          c.name AS category,
+          u.username AS "owner"
+        from
+          "product" p
+        right join
+          "user" u
+        on
+          p.user_id = u.id
+        left join
+          "category" c
+        on
+          p.category_id = c.id
+        where
+          p.id = ${id};
+    `;
+    console.log('Query result:', data);
+    return data;
+  } catch (error) {
+    console.error('Database query error:', error);
+    return { error: (error as Error).message, status: 500 };
+  }
+}
+
+export async function getUserRating(user_id: number) {
+  try {
+    if (!process.env.POSTGRES_URL) {
+      console.error('POSTGRES_URL environment variable is not defined.');
+      return { error: 'Database connection string is missing.', status: 500 };
+    }
+    const data = await sql`
+        SELECT
+        r.rating
+      FROM
+        "review" r
+      JOIN
+        "product" p ON p.id = r.product_id
+      WHERE
+        p.user_id = ${user_id};
+    `;
+    console.log('Query result:', data);
+    return data;
+  } catch (error) {
+    console.error('Database query error:', error);
+    return { error: (error as Error).message, status: 500 };
+  }
+}
+
+export async function getUsers() {
+  try {
+    if (!process.env.POSTGRES_URL) {
+      console.error('POSTGRES_URL environment variable is not defined.');
+      return { error: 'Database connection string is missing.', status: 500 };
+    }
+    const data = await sql`
+        SELECT
+            *
+        FROM
+            "user";
+    `;
+    console.log('Query result:', data);
     return data;
   } catch (error) {
     console.error('Database query error:', error);
