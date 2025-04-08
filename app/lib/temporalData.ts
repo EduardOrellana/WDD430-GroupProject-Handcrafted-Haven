@@ -400,6 +400,7 @@ export const productsObject = [
   }
 ]
 
+;
 
 export const profileObject = [
   {
