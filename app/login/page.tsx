@@ -1,5 +1,6 @@
 'use client';
-import styles from "@/app/page.module.css"
+import styles from "@/app/page.module.css";
+import Image from "next/image";
 
 export default function Layout() {
   return (
@@ -30,6 +31,15 @@ export default function Layout() {
           <button type="submit">Log In</button>
         </form>
       </section>
+      <section className={styles.oAuthSection}>
+        <Image
+          src="/github-logo.png"
+          width={50}
+          height={30}
+          alt="GitHub Logo"
+          className={styles.gitLogo}
+        />
+      </section>
     </main>
-  );
+  )
 }
