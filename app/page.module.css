@@ -72,6 +72,10 @@
   display: none;
 }
 
+.nav div {
+  display: none;
+}
+
 .activePage::before {
   content: '🔔';
   color: #4CAF50;
@@ -183,9 +187,15 @@
     text-align: right;
   }
 
+  .nav div {
+    display: block;
+  }
+
   .search {
     text-align: right;
   }
   
+
+
 }
 

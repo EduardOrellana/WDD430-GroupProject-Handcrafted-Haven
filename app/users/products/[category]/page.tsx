@@ -15,6 +15,8 @@ export default async function UserProductListByCategory({ params }: { params: Pr
     (product) => product.category.toLowerCase() === category.toLowerCase()
   );
 
+  const totalProducts = list.length;
+
   if (list.length === 0) {
     return (
       <div className={styles.productlist}>
@@ -24,6 +26,11 @@ export default async function UserProductListByCategory({ params }: { params: Pr
   }
 
   return (
+    <>
+    <div className={styles.productlist}>
+      <h2>{totalProducts} products found in {category}</h2>
+      <h2>Products in {category}</h2>
+    </div>
     <div className={styles.productlist}>
       {list.map((product, index) => (
         <div className={styles.productCard} key={index}>
@@ -37,5 +44,6 @@ export default async function UserProductListByCategory({ params }: { params: Pr
         </div>
       ))}
     </div>
+    </>
   );
 }

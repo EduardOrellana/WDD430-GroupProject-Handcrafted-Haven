@@ -21,12 +21,21 @@ export default function Navigation() {
         <Link href="/" className={pathName === "/" ? styles.activePage : ""}>
           Home
         </Link>
+        <div>
+          |
+        </div>
         <Link href="/seller-profile" className={pathName === "/seller-profile" ? styles.activePage : ""}>
           My Seller Profile
         </Link>
+        <div>
+          |
+        </div>
         <Link href="/users/products" className={pathName === "/users/products" ? styles.activePage : ""}>
           General Market
         </Link>
+        <div>
+          |
+        </div>
         <Link href="/login" className={pathName === "/login" ? styles.activePage : ""}>
           Login
         </Link>
