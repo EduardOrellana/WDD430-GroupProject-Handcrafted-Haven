@@ -26,7 +26,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
           <h3>Customer Reviews</h3>
           {product.reviews.map((review, index) => (
             <div key={index} className={styles.review}>
-              <p className={styles.reviewText}>"{review.text}"</p>
+              <p className={styles.reviewText}>&quot;{review.text}&quot;</p>
               <p className={styles.reviewAuthor}>- {review.author}</p>
             </div>
           ))}
