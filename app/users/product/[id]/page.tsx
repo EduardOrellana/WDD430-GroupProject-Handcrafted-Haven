@@ -1,6 +1,5 @@
 import styles from '@/app/users/product/[id]/product.module.css';
 import Image from 'next/image';
-
 import { productsObject } from '@/app/lib/temporalData';
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
@@ -16,7 +15,12 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
   return (
     <div className={styles.productDetail}>
       <div className={styles.productImage}>
-        <Image src={product.image} alt={product.name} />
+        <Image
+          src={product.image}
+          alt={product.name}
+          width={600}
+          height={1200}
+        />
       </div>
       <div className={styles.productInfo}>
         <h2 className={styles.productName}>{product.name}</h2>
