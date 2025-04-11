@@ -258,7 +258,7 @@ export async function getUserByEmail(email:string) {
   }
 }
 
-export async function getUserRating(user_id: number) {
+export async function getUserRatingById(user_id: number) {
   try {
     if (!process.env.POSTGRES_URL) {
       console.error('POSTGRES_URL environment variable is not defined.');
@@ -286,7 +286,7 @@ export async function getUserRating(user_id: number) {
   }
 }
 
-export async function getProductRating(product_id: number) {
+export async function getProductRatingById(product_id: number) {
   try {
     if (!process.env.POSTGRES_URL) {
       console.error('POSTGRES_URL environment variable is not defined.');
@@ -312,7 +312,7 @@ export async function getProductRating(product_id: number) {
   }
 }
 
-export async function getProductReview(product_id: number) {
+export async function getProductReviewById(product_id: number) {
   try {
     if (!process.env.POSTGRES_URL) {
       console.error('POSTGRES_URL environment variable is not defined.');
@@ -420,7 +420,7 @@ export async function createReview(product_id: number, user_id: number, content:
   }
 }
 
-export async function updateReview(id: number, content: string, rating: number) {
+export async function updateReviewById(id: number, content: string, rating: number) {
   try {
     if (!process.env.POSTGRES_URL) {
       console.error('POSTGRES_URL environment variable is not defined.');
@@ -439,7 +439,7 @@ export async function updateReview(id: number, content: string, rating: number) 
   }
 }
 
-export async function deleteReview(id: number) {
+export async function deleteReviewById(id: number) {
   try {
     if (!process.env.POSTGRES_URL) {
       console.error('POSTGRES_URL environment variable is not defined.');
@@ -478,7 +478,7 @@ export async function createUser(username: string, profile_pic_url: string, emai
   }
 }
 
-export async function updateUser(id: number, username: string, profile_pic_url: string, email: string, password: string) {
+export async function updateUserById(id: number, username: string, profile_pic_url: string, email: string, password: string) {
   try {
     if (!process.env.POSTGRES_URL) {
       console.error('POSTGRES_URL environment variable is not defined.');
@@ -497,7 +497,7 @@ export async function updateUser(id: number, username: string, profile_pic_url: 
   }
 }
 
-export async function deleteUser(id:number) {
+export async function deleteUserById(id:number) {
   try {
     if (!process.env.POSTGRES_URL) {
       console.error('POSTGRES_URL environment variable is not defined.');
