@@ -56,7 +56,12 @@ export async function productSearchByName(name: string) {
     if (process.env.ENV === 'development') {
       console.log('Query result:', data);
     }
-    return data;
+    if (data.length === 0) {
+      return { msg: 'Products not found', status: 404 };
+    }
+    if (data.length > 1) {
+      return data;
+    }
   } catch (error) {
     console.error('Database query error:', error);
     return { error: (error as Error).message, status: 500 };
@@ -94,7 +99,12 @@ export async function productSearchByPriceRange(min: number, max: number) {
     if (process.env.ENV === 'development') {
       console.log('Query result:', data);
     }
-    return data;
+    if (data.length === 0) {
+      return { msg: 'Products not found', status: 404 };
+    }
+    if (data.length > 1) {
+      return data;
+    }
   } catch (error) {
     console.error('Database query error:', error);
     return { error: (error as Error).message, status: 500 };
@@ -127,7 +137,12 @@ export async function productSearchByCategory(category_id: number) {
     if (process.env.ENV === 'development') {
       console.log('Query result:', data);
     }
-    return data;
+    if (data.length === 0) {
+      return { msg: 'Products not found', status: 404 };
+    }
+    if (data.length > 1) {
+      return data;
+    }
   } catch (error) {
     console.error('Database query error:', error);
     return { error: (error as Error).message, status: 500 };
@@ -160,7 +175,12 @@ export async function productSearchByUser(user_id: number) {
     if (process.env.ENV === 'development') {
       console.log('Query result:', data);
     }
-    return data;
+    if (data.length === 0) {
+      return { msg: 'Products not found', status: 404 };
+    }
+    if (data.length > 1) {
+      return data;
+    }
   } catch (error) {
     console.error('Database query error:', error);
     return { error: (error as Error).message, status: 500 };
@@ -197,7 +217,12 @@ export async function getProductById(id: number) {
     if (process.env.ENV === 'development') {
       console.log('Query result:', data);
     }
-    return data[0];
+    if (data.length === 0) {
+      return { msg: 'Product not found', status: 404 };
+    }
+    if (data.length > 1) {
+      return data[0];
+    }
   } catch (error) {
     console.error('Database query error:', error);
     return { error: (error as Error).message, status: 500 };
@@ -224,7 +249,12 @@ export async function getUserById(id: number) {
     if (process.env.ENV === 'development') {
       console.log('Query result:', data);
     }
-    return data[0];
+    if (data.length === 0) {
+      return { msg: 'User not found', status: 404 };
+    }
+    if (data.length > 1) {
+      return data[0];
+    }
   } catch (error) {
     console.error('Database query error:', error);
     return { error: (error as Error).message, status: 500 };
@@ -251,7 +281,12 @@ export async function getUserByEmail(email:string) {
     if (process.env.ENV === 'development') {
       console.log('Query result:', data);
     }
-    return data[0];
+    if (data.length === 0) {
+      return { msg: 'User not found', status: 404 };
+    }
+    if (data.length > 1) {
+      return data[0];
+    }
   } catch (error) {
     console.error('Database query error:', error);
     return { error: (error as Error).message, status: 500 };
@@ -274,12 +309,17 @@ export async function getUserRatingById(user_id: number) {
       WHERE
         p.user_id = ${user_id};
     `;
-    const ratingSum = data.reduce((sum, item) => sum + item.rating, 0);
-    const totalRating = (ratingSum / data.length || 0).toFixed(2);
-    if (process.env.ENV === 'development') {
-      console.log('Total Rating:', totalRating);
+    if (data.length === 0) {
+      return { msg: 'No rating found', status: 404 };
     }
-    return [{ rating: totalRating }];
+    if (data.length > 1) {
+      const ratingSum = data.reduce((sum, item) => sum + item.rating, 0);
+      const totalRating = (ratingSum / data.length || 0).toFixed(2);
+      if (process.env.ENV === 'development') {
+        console.log('Total Rating:', totalRating);
+      }
+      return [{ rating: totalRating }];
+    }
   } catch (error) {
     console.error('Database query error:', error);
     return { error: (error as Error).message, status: 500 };
@@ -300,12 +340,17 @@ export async function getProductRatingById(product_id: number) {
       WHERE
         product_id = ${product_id};
     `;
-    const ratingSum = data.reduce((sum, item) => sum + item.rating, 0);
-    const totalRating = (ratingSum / data.length || 0).toFixed(2);
-    if (process.env.ENV === 'development') {
-      console.log('Total Rating:', totalRating);
+    if (data.length === 0) {
+      return { msg: 'No rating found', status: 404 };
     }
-    return [{ rating: totalRating }];
+    if (data.length > 1) {
+      const ratingSum = data.reduce((sum, item) => sum + item.rating, 0);
+      const totalRating = (ratingSum / data.length || 0).toFixed(2);
+      if (process.env.ENV === 'development') {
+        console.log('Total Rating:', totalRating);
+      }
+      return [{ rating: totalRating }];
+    }
   } catch (error) {
     console.error('Database query error:', error);
     return { error: (error as Error).message, status: 500 };
