@@ -2,15 +2,26 @@ import styles from './product.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { productsObject } from '@/app/lib/temporalData';
+import { getProducts } from '@/app/lib/data';
 
 export default async function UserProdutList({
   searchParams,
 }: {
   searchParams: Promise<{ [search: string]: string | string[] | undefined }>;
 }) {
-  const { search } = await searchParams;
+  const data = await getProducts();
 
-  const list = productsObject.filter(
+  if ('error' in data) {
+    console.error('Error fetching products:', data.error);
+    return <div>Error fetching products</div>;
+  } else {
+    console.log('Products:', data);
+  }
+
+  const { search } = await searchParams;
+  const products = await data;
+
+  const list = products.filter(
     (product) =>
       typeof search === 'string' &&
       (product.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -34,13 +45,13 @@ export default async function UserProdutList({
               href={`/users/product/${product.id}`}
               className={styles.productLink}
             >
-              <Image
-                src={product.image}
+              {/* <Image
+                src={product.image[0]}
                 alt={product.name}
                 width={150}
                 height={150}
                 priority
-              />
+              /> */}
               <h3>{product.name}</h3>
               <p>{product.description}</p>
               <span className="price">{product.price}</span>
@@ -53,19 +64,19 @@ export default async function UserProdutList({
 
   return (
     <div className={styles.productlist}>
-      {productsObject.map((product, index) => (
+      {products.map((product, index) => (
         <div className={styles.productCard} key={index}>
           <Link
             href={`/users/product/${product.id}`}
             className={styles.productLink}
           >
-            <Image
+            {/* <Image
               src={product.image}
               alt={product.name}
               width={150}
               height={150}
               priority
-            />
+            /> */}
             <h3>{product.name}</h3>
             <p>{product.description}</p>
             <span className="price">{`$${product.price}`}</span>

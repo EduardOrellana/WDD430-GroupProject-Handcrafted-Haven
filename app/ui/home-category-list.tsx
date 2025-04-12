@@ -1,12 +1,21 @@
 import styles from '../page.module.css';
 import Link from 'next/link';
 import { productsObject } from '@/app/lib/temporalData';
+import { getCategories } from '@/app/lib/data';
 
-export default function CategoryList() {
+export default async function CategoryList() {
   // Extraer categorías únicas
-  const uniqueCategories = Array.from(
-    new Set(productsObject.map((product) => product.category))
-  );
+
+  const data = await getCategories();
+
+  if ('error' in data) {
+    console.error('Error fetching categories:', data.error);
+    return <div>Error fetching categories</div>;
+  } else {
+    console.log('Categories:', data);
+  }
+
+  const uniqueCategories = Array.from(new Set(data.map((cat) => cat.name)));
 
   return (
     <div className={styles.categoryList}>
