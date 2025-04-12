@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
+    "cookie": "^1.0.2",
+    "jsonwebtoken": "^9.0.2",
     "next": "15.2.3",
     "next-auth": "^4.24.11",
     "postgres": "^3.4.5",
@@ -18,6 +20,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
