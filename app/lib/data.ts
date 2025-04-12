@@ -600,3 +600,25 @@ export async function getUsers() {
     return { error: (error as Error).message, status: 500 };
   }
 }
+
+export async function getCategoryIdByName(categoryName: string) {
+  try {
+    if (!process.env.POSTGRES_URL) {
+      console.error('POSTGRES_URL environment variable is not defined.');
+      return { error: 'Database connection string is missing.', status: 500 };
+    }
+    const data = await sql`
+        SELECT id FROM "category" WHERE name = ${categoryName};
+    `;
+    if (process.env.ENV === 'development') {
+      console.log('Query result:', data);
+    }
+    if (data.length === 0) {
+      return { error: 'Category not found', status: 404 };
+    }
+    return data[0].id; // Return only the ID
+  } catch (error) {
+    console.error('Database query error:', error);
+    return { error: (error as Error).message, status: 500 };
+  }
+}

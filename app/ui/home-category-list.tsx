@@ -1,6 +1,5 @@
 import styles from '../page.module.css';
 import Link from 'next/link';
-import { productsObject } from '@/app/lib/temporalData';
 import { getCategories } from '@/app/lib/data';
 
 export default async function CategoryList() {

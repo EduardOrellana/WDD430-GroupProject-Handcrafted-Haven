@@ -1,11 +1,7 @@
-// app/users/products/[id]/page.tsx
-
 import styles from './product.module.css';
 import Image from 'next/image';
-import { productsObject } from '@/app/lib/temporalData';
+import { productSearchByCategory, getCategoryIdByName } from '@/app/lib/data';
 import Link from 'next/link';
-
-const products = productsObject;
 
 export default async function UserProductListByCategory({
   params,
@@ -14,10 +10,30 @@ export default async function UserProductListByCategory({
 }) {
   const { category } = await params;
 
-  const list = products.filter(
-    (product) => product.category.toLowerCase() === category.toLowerCase()
-  );
+  // Decode the category parameter to handle special characters like spaces and '&'
+  const decodedCategory = decodeURIComponent(category);
 
+  const categoryId = await getCategoryIdByName(decodedCategory);
+
+  if (categoryId.error) {
+    return (
+      <div className={styles.productlist}>
+        <h2>Error: {categoryId.error}</h2>
+      </div>
+    );
+  }
+
+  const response = await productSearchByCategory(categoryId);
+
+  if (response.error) {
+    return (
+      <div className={styles.productlist}>
+        <h2>Error: {response.error}</h2>
+      </div>
+    );
+  }
+
+  const list = response;
   const totalProducts = list.length;
 
   if (list.length === 0) {
@@ -32,15 +48,15 @@ export default async function UserProductListByCategory({
     <>
       <div className={styles.productlist}>
         <h2>
-          {totalProducts} products found in {category}
+          {totalProducts} products found in {decodedCategory}
         </h2>
-        <h2>Products in {category}</h2>
+        <h2>Products in {decodedCategory}</h2>
       </div>
       <div className={styles.productlist}>
         {list.map((product, index) => (
           <div className={styles.productCard} key={index}>
             <Image
-              src={product.image}
+              src={product.images[0]}
               alt={product.name}
               width={150}
               height={150}
