@@ -10,7 +10,7 @@ export async function getCategories() {
       return { error: 'Database connection string is missing.', status: 500 };
     }
     const data = await sql`
-        SELECT DISTINCT
+        SELECT
           *
         FROM
           "category";
@@ -20,29 +20,6 @@ export async function getCategories() {
     }
     return data;
   } catch (error) {
-    console.error('Database query error:', error);
-    return { error: (error as Error).message, status: 500 };
-  }
-}
-
-export async function getProducts() {
-  try {
-    if (!process.env.POSTGRES_URL) {
-      console.error('POSTGRES_URL environment variable is not defined.');
-      return { error: 'Database connection string is missing.', status: 500 };
-    }
-    const data = await sql`
-        SELECT
-          *
-        FROM
-          "product" 
-    `;
-    if (process.env.ENV === 'development') {
-      console.log('Query result:', data);
-    }
-    return data;
-  }
-  catch (error) {
     console.error('Database query error:', error);
     return { error: (error as Error).message, status: 500 };
   }
@@ -79,7 +56,12 @@ export async function productSearchByName(name: string) {
     if (process.env.ENV === 'development') {
       console.log('Query result:', data);
     }
-    return data;
+    if (data.length === 0) {
+      return { msg: 'Products not found', status: 404 };
+    }
+    if (data.length > 1) {
+      return data;
+    }
   } catch (error) {
     console.error('Database query error:', error);
     return { error: (error as Error).message, status: 500 };
@@ -117,7 +99,12 @@ export async function productSearchByPriceRange(min: number, max: number) {
     if (process.env.ENV === 'development') {
       console.log('Query result:', data);
     }
-    return data;
+    if (data.length === 0) {
+      return { msg: 'Products not found', status: 404 };
+    }
+    if (data.length > 1) {
+      return data;
+    }
   } catch (error) {
     console.error('Database query error:', error);
     return { error: (error as Error).message, status: 500 };
@@ -150,7 +137,12 @@ export async function productSearchByCategory(category_id: number) {
     if (process.env.ENV === 'development') {
       console.log('Query result:', data);
     }
-    return data;
+    if (data.length === 0) {
+      return { msg: 'Products not found', status: 404 };
+    }
+    if (data.length > 1) {
+      return data;
+    }
   } catch (error) {
     console.error('Database query error:', error);
     return { error: (error as Error).message, status: 500 };
@@ -183,7 +175,12 @@ export async function productSearchByUser(user_id: number) {
     if (process.env.ENV === 'development') {
       console.log('Query result:', data);
     }
-    return data;
+    if (data.length === 0) {
+      return { msg: 'Products not found', status: 404 };
+    }
+    if (data.length > 1) {
+      return data;
+    }
   } catch (error) {
     console.error('Database query error:', error);
     return { error: (error as Error).message, status: 500 };
@@ -220,14 +217,83 @@ export async function getProductById(id: number) {
     if (process.env.ENV === 'development') {
       console.log('Query result:', data);
     }
-    return data[0];
+    if (data.length === 0) {
+      return { msg: 'Product not found', status: 404 };
+    }
+    if (data.length > 1) {
+      return data[0];
+    }
   } catch (error) {
     console.error('Database query error:', error);
     return { error: (error as Error).message, status: 500 };
   }
 }
 
-export async function getUserRating(user_id: number) {
+export async function getUserById(id: number) {
+  try {
+    if (!process.env.POSTGRES_URL) {
+      console.error('POSTGRES_URL environment variable is not defined.');
+      return { error: 'Database connection string is missing.', status: 500 };
+    }
+    const data = await sql`
+        SELECT
+          "username",
+          "email",
+          "profile_pic_url",
+          "password"
+        FROM
+          "user"
+        WHERE
+          id = ${id};
+    `;
+    if (process.env.ENV === 'development') {
+      console.log('Query result:', data);
+    }
+    if (data.length === 0) {
+      return { msg: 'User not found', status: 404 };
+    }
+    if (data.length > 1) {
+      return data[0];
+    }
+  } catch (error) {
+    console.error('Database query error:', error);
+    return { error: (error as Error).message, status: 500 };
+  }
+}
+
+export async function getUserByEmail(email:string) {
+  try {
+    if (!process.env.POSTGRES_URL) {
+      console.error('POSTGRES_URL environment variable is not defined.');
+      return { error: 'Database connection string is missing.', status: 500 };
+    }
+    const data = await sql`
+        SELECT
+          "id",
+          "username",
+          "profile_pic_url",
+          "password"
+        FROM
+          "user"
+        WHERE
+          email = ${email};
+    `;
+    if (process.env.ENV === 'development') {
+      console.log('Query result:', data);
+    }
+    if (data.length === 0) {
+      return { msg: 'User not found', status: 404 };
+    }
+    if (data.length > 1) {
+      return data[0];
+    }
+  } catch (error) {
+    console.error('Database query error:', error);
+    return { error: (error as Error).message, status: 500 };
+  }
+}
+
+export async function getUserRatingById(user_id: number) {
   try {
     if (!process.env.POSTGRES_URL) {
       console.error('POSTGRES_URL environment variable is not defined.');
@@ -243,19 +309,24 @@ export async function getUserRating(user_id: number) {
       WHERE
         p.user_id = ${user_id};
     `;
-    const ratingSum = data.reduce((sum, item) => sum + item.rating, 0);
-    const totalRating = (ratingSum / data.length || 0).toFixed(2);
-    if (process.env.ENV === 'development') {
-      console.log('Total Rating:', totalRating);
+    if (data.length === 0) {
+      return { msg: 'No rating found', status: 404 };
     }
-    return [{ rating: totalRating }];
+    if (data.length > 1) {
+      const ratingSum = data.reduce((sum, item) => sum + item.rating, 0);
+      const totalRating = (ratingSum / data.length || 0).toFixed(2);
+      if (process.env.ENV === 'development') {
+        console.log('Total Rating:', totalRating);
+      }
+      return [{ rating: totalRating }];
+    }
   } catch (error) {
     console.error('Database query error:', error);
     return { error: (error as Error).message, status: 500 };
   }
 }
 
-export async function getProductRating(product_id: number) {
+export async function getProductRatingById(product_id: number) {
   try {
     if (!process.env.POSTGRES_URL) {
       console.error('POSTGRES_URL environment variable is not defined.');
@@ -269,19 +340,24 @@ export async function getProductRating(product_id: number) {
       WHERE
         product_id = ${product_id};
     `;
-    const ratingSum = data.reduce((sum, item) => sum + item.rating, 0);
-    const totalRating = (ratingSum / data.length || 0).toFixed(2);
-    if (process.env.ENV === 'development') {
-      console.log('Total Rating:', totalRating);
+    if (data.length === 0) {
+      return { msg: 'No rating found', status: 404 };
     }
-    return [{ rating: totalRating }];
+    if (data.length > 1) {
+      const ratingSum = data.reduce((sum, item) => sum + item.rating, 0);
+      const totalRating = (ratingSum / data.length || 0).toFixed(2);
+      if (process.env.ENV === 'development') {
+        console.log('Total Rating:', totalRating);
+      }
+      return [{ rating: totalRating }];
+    }
   } catch (error) {
     console.error('Database query error:', error);
     return { error: (error as Error).message, status: 500 };
   }
 }
 
-export async function getProductReview(product_id: number) {
+export async function getProductReviewById(product_id: number) {
   try {
     if (!process.env.POSTGRES_URL) {
       console.error('POSTGRES_URL environment variable is not defined.');
@@ -311,6 +387,181 @@ export async function getProductReview(product_id: number) {
   }
 }
 
+export async function updateProductById(id: number, name: string, price: number, description:string, images:[string]) {
+  try {
+    if (!process.env.POSTGRES_URL) {
+      console.error('POSTGRES_URL environment variable is not defined.');
+      return { error: 'Database connection string is missing.', status: 500 };
+    }
+    const data = await sql`
+      UPDATE "product" SET name = ${name}, price = ${price}, description = ${description}, images = ${images} WHERE "id" = ${id};
+    `;
+    if (process.env.ENV === 'development') {
+      console.log('Query result:', data);
+    }
+    return data[0];
+  } catch (error) {
+    console.error('Database query error:', error);
+    return { error: (error as Error).message, status: 500 };
+  }
+}
+
+export async function deleteProductById(id: number) {
+  try {
+    if (!process.env.POSTGRES_URL) {
+      console.error('POSTGRES_URL environment variable is not defined.');
+      return { error: 'Database connection string is missing.', status: 500 };
+    }
+    const data = await sql`
+      DELETE FROM "product" WHERE "id" = ${id};
+    `;
+    if (process.env.ENV === 'development') {
+      console.log('Query result:', data);
+    }
+    return {delete: "success"};
+  } catch (error) {
+    console.error('Database query error:', error);
+    return { error: (error as Error).message, status: 500 };
+  }
+}
+
+export async function createProduct(name: string, price: number, description:string, images:[string], user_id: number, category_id: number) {
+  try {
+    if (!process.env.POSTGRES_URL) {
+      console.error('POSTGRES_URL environment variable is not defined.');
+      return { error: 'Database connection string is missing.', status: 500 };
+    }
+    const data = await sql`
+      INSERT INTO "product" (name, price, description, images, user_id, category_id)
+      VALUES (${name}, ${price}, ${description}, ${images}, ${user_id}, ${category_id});
+    `;
+    if (process.env.ENV === 'development') {
+      console.log('Query result:', data);
+    }
+    return data[0];
+  } catch (error) {
+    console.error('Database query error:', error);
+    return { error: (error as Error).message, status: 500 };
+  }
+}
+
+export async function createReview(product_id: number, user_id: number, content: string, rating: number) {
+  try {
+    if (!process.env.POSTGRES_URL) {
+      console.error('POSTGRES_URL environment variable is not defined.');
+      return { error: 'Database connection string is missing.', status: 500 };
+    }
+    const data = await sql`
+      INSERT INTO "review" (product_id, user_id, content, rating)
+      VALUES (${product_id}, ${user_id}, ${content}, ${rating});
+    `;
+    if (process.env.ENV === 'development') {
+      console.log('Query result:', data);
+    }
+    return data[0];
+  } catch (error) {
+    console.error('Database query error:', error);
+    return { error: (error as Error).message, status: 500 };
+  }
+}
+
+export async function updateReviewById(id: number, content: string, rating: number) {
+  try {
+    if (!process.env.POSTGRES_URL) {
+      console.error('POSTGRES_URL environment variable is not defined.');
+      return { error: 'Database connection string is missing.', status: 500 };
+    }
+    const data = await sql`
+      UPDATE "review" SET content = ${content}, rating = ${rating} WHERE "id" = ${id};
+    `;
+    if (process.env.ENV === 'development') {
+      console.log('Query result:', data);
+    }
+    return data[0];
+  } catch (error) {
+    console.error('Database query error:', error);
+    return { error: (error as Error).message, status: 500 };
+  }
+}
+
+export async function deleteReviewById(id: number) {
+  try {
+    if (!process.env.POSTGRES_URL) {
+      console.error('POSTGRES_URL environment variable is not defined.');
+      return { error: 'Database connection string is missing.', status: 500 };
+    }
+    const data = await sql`
+      DELETE FROM "review" WHERE "id" = ${id};
+    `;
+    if (process.env.ENV === 'development') {
+      console.log('Query result:', data);
+    }
+    return {delete: "success"};
+  } catch (error) {
+    console.error('Database query error:', error);
+    return { error: (error as Error).message, status: 500 };
+  }
+}
+
+export async function createUser(username: string, profile_pic_url: string, email: string, password: string) {
+  try {
+    if (!process.env.POSTGRES_URL) {
+      console.error('POSTGRES_URL environment variable is not defined.');
+      return { error: 'Database connection string is missing.', status: 500 };
+    }
+    const data = await sql`
+      INSERT INTO "user" (username, profile_pic_url, email, password)
+      VALUES (${username}, ${profile_pic_url}, ${email}, ${password});
+    `;
+    if (process.env.ENV === 'development') {
+      console.log('Query result:', data);
+    }
+    return data[0];
+  } catch (error) {
+    console.error('Database query error:', error);
+    return { error: (error as Error).message, status: 500 };
+  }
+}
+
+export async function updateUserById(id: number, username: string, profile_pic_url: string, email: string, password: string) {
+  try {
+    if (!process.env.POSTGRES_URL) {
+      console.error('POSTGRES_URL environment variable is not defined.');
+      return { error: 'Database connection string is missing.', status: 500 };
+    }
+    const data = await sql`
+      UPDATE "user" SET username = ${username}, profile_pic_url = ${profile_pic_url}, email = ${email}, password = ${password} WHERE "id" = ${id};
+    `;
+    if (process.env.ENV === 'development') {
+      console.log('Query result:', data);
+    }
+    return data[0];
+  } catch (error) {
+    console.error('Database query error:', error);
+    return { error: (error as Error).message, status: 500 };
+  }
+}
+
+export async function deleteUserById(id:number) {
+  try {
+    if (!process.env.POSTGRES_URL) {
+      console.error('POSTGRES_URL environment variable is not defined.');
+      return { error: 'Database connection string is missing.', status: 500 };
+    }
+    const data = await sql`
+      DELETE FROM "user" WHERE "id" = ${id};
+    `;
+    if (process.env.ENV === 'development') {
+      console.log('Query result:', data);
+    }
+    return {delete: "success"};
+  } catch (error) {
+    console.error('Database query error:', error);
+    return { error: (error as Error).message, status: 500 };
+  }
+}
+
+// test function beware, high probability of data leak!
 export async function getUsers() {
   try {
     if (!process.env.POSTGRES_URL) {

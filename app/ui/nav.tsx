@@ -20,8 +20,8 @@ export default function Navigation() {
         </Link>
         <div>|</div>
         <Link
-          href="/seller-profile"
-          className={pathName === '/seller-profile' ? styles.activePage : ''}
+          href="/profile"
+          className={pathName === '/profile' ? styles.activePage : ''}
         >
           My Profile
         </Link>
