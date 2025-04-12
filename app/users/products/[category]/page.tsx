@@ -15,7 +15,7 @@ export default async function UserProductListByCategory({
 
   const categoryId = await getCategoryIdByName(decodedCategory);
 
-  if (categoryId.error) {
+  if (categoryId?.error) {
     return (
       <div className={styles.productlist}>
         <h2>Error: {categoryId.error}</h2>
@@ -25,15 +25,15 @@ export default async function UserProductListByCategory({
 
   const response = await productSearchByCategory(categoryId);
 
-  if (response.error) {
+  if (!response || 'error' in response) {
     return (
       <div className={styles.productlist}>
-        <h2>Error: {response.error}</h2>
+        <h2>Error: {response?.error || 'Unknown error occurred'}</h2>
       </div>
     );
   }
 
-  const list = response;
+  const list = Array.isArray(response) ? response : [];
   const totalProducts = list.length;
 
   if (list.length === 0) {
@@ -53,7 +53,7 @@ export default async function UserProductListByCategory({
         <h2>Products in {decodedCategory}</h2>
       </div>
       <div className={styles.productlist}>
-        {list.map((product, index) => (
+        {list.map((product: any, index: any) => (
           <div className={styles.productCard} key={index}>
             <Image
               src={product.images[0]}
