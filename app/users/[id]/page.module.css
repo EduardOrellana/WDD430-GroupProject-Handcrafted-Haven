@@ -1,0 +1,106 @@
+.sellerProfile {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #f9f9f9;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .sellerProfile h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #333;
+    text-align: center;
+  }
+  
+  .profileCard {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .profileCard h3 {
+    font-size: 1.5rem;
+    color: #1a202c;
+    margin-bottom: 0.5rem;
+  }
+  
+  .profileCard p {
+    font-size: 1rem;
+    color: #4a5568;
+  }
+  
+  .productlist {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+  }
+  
+  .productlist h2 {
+    font-size: 1.8rem;
+    color: #2d3748;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .productCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1rem auto;
+    max-width: 300px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .productCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+  
+  .productCard h3 {
+    font-size: 1.2rem;
+    color: #2b6cb0;
+    margin: 0.5rem 0;
+  }
+  
+  .productCard p {
+    font-size: 0.95rem;
+    color: #4a5568;
+    text-align: center;
+  }
+  
+  .price {
+    font-weight: bold;
+    color: #38a169;
+    margin: 0.5rem 0;
+  }
+  
+  .productLink {
+    margin-top: 0.5rem;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #2b6cb0;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .productLink:hover {
+    background-color: #2c5282;
+  }
+  
+  /* Responsive Grid */
+  .productlist {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  

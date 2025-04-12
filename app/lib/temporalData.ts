@@ -399,3 +399,33 @@ export const productsObject = [
     "ownerId": 225
   }
 ]
+
+;
+
+export const profileObject = [
+  {
+    id: 207,
+    name: "John Doe",
+    description: "This is a great seller 1",
+    imageUrl: "https://placehold.co/150",
+    seller: true
+},
+{
+    id: 200,
+    name: "Jane Smith",
+    description: "This is a great seller 2",
+    imageUrl: "https://placehold.co/150",
+},
+{
+    id: 13,
+    name: "Alice Johnson",
+    description: "This is a great seller 3",
+    imageUrl: "https://placehold.co/150",
+},
+{
+    id: 4,
+    name: "Bob Brown",
+    description: "This is a great seller 4",
+    imageUrl: "https://placehold.co/150",
+}
+]

@@ -1,8 +1,7 @@
-
-import SellerList from "./ui/home-seller-list"
-import CategoryList from "./ui/home-category-list"
-import Search from "./ui/search"
-import styles from "./page.module.css"
+import SellerList from './ui/home-seller-list';
+import CategoryList from './ui/home-category-list';
+import Search from './ui/search';
+import styles from './page.module.css';
 
 export default function Home() {
   return (
@@ -14,5 +13,5 @@ export default function Home() {
         <CategoryList />
       </div>
     </>
-  )
+  );
 }
