@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
   },
 
   images: {
-    domains: ["placehold.co"]
+    domains: ["i.etsystatic.com"]
   }
 };
 
