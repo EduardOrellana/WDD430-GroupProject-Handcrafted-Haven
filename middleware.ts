@@ -13,7 +13,7 @@ export async function middleware(request: NextRequest) {
       throw new Error('JWT_SECRET is not defined in environment variables');
     }
     const decoded = jwt.verify(token.value, process.env.JWT_SECRET);
-    request.headers.set('user', JSON.stringify(decoded)); // Pass user info to the request
+    request.headers.set('user', JSON.stringify(decoded));
     return NextResponse.next();
   } catch (error) {
     return NextResponse.redirect(new URL('/login', request.url));
