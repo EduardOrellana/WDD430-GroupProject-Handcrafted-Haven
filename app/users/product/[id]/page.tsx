@@ -1,12 +1,8 @@
 import styles from '@/app/users/product/[id]/product.module.css';
 import Image from 'next/image';
 import { getProductById, getProductReviewById } from '@/app/lib/data';
-import { getServerSession } from 'next-auth';
-import { authConfig } from '@/app/api/authConfig';
-import Link from 'next/link';
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
-  const session = await getServerSession(authConfig);
   const params = await props.params;
   const id = params.id;
   console.log('ID:', id);
@@ -55,17 +51,6 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
             ))
           ) : (
             <p>No reviews available</p>
-          )}
-          {session ? (
-            <div>
-              <h4>Leave a Review</h4>
-              {/* Add review form here */}
-            </div>
-          ) : (
-            <p>
-              To leave a review, you must be{' '}
-              <Link href="/login">logged in</Link>.
-            </p>
           )}
         </div>
       </div>
