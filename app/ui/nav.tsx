@@ -1,6 +1,6 @@
-"use client"; 
+"use client";
 import { useState } from "react";
-import styles from "@/app/page.module.css"; 
+import styles from "@/app/page.module.css";
 import Link from "next/link";
 
 export default function Navigation() {
@@ -8,18 +8,18 @@ export default function Navigation() {
 
   return (
     <>
-      <button 
-        className={styles.navitagion} 
+      <button
+        className={styles.navitagion}
         onClick={() => setOpen(!open)}
       >
         {open ? "✖" : "☰"}
       </button>
       <nav className={`${styles.nav} ${open ? styles.show : ""}`}>
-          <Link href="/">Home</Link>
-          <Link href="/sellers">Sellers</Link>
-          <Link href="/users/products">Users Products</Link>
-          <Link href={"/login"} >Login</Link>
-          {/* <Link href={"/signup"} >Sign Up</Link> */}
+        <Link href="/">Home</Link>
+        <Link href="/sellers">Sellers</Link>
+        <Link href="/users/products">Users Products</Link>
+        <Link href={"/login"} >Login</Link>
+        <Link href={"/create-account"}>Sign Up</Link>
       </nav>
     </>
   );

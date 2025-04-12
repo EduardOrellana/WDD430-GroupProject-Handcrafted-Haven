@@ -7,7 +7,7 @@ import Search from "./ui/search"
 
 export const metadata: Metadata = {
   title: "Heavenly Haven Art Store",
-  description: "An art store for the most fervent crafters",
+  description: "An art store for crafters",
 };
 
 export default function RootLayout({
@@ -15,6 +15,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
 
   // const pathname = typeof window !== "undefined" && window.location.pathname === "/login";
   // const isLoginPage = pathname === "/login";

@@ -1,13 +1,23 @@
 'use client';
 import styles from "@/app/page.module.css";
-import Image from "next/image";
+import Link from "next/link";
+import { useActionState } from "react";
+import { processLogin } from "@/app/(account)/actions";
+import GithubLogin from "./github-login";
 
-export default function Layout() {
+export default function Login() {
+  const [message, action] = useActionState(processLogin, undefined)
+
   return (
     <main>
-      <section>
+
+      <section className={styles.logInSection}>
         <h2 className={styles.titleLogin}>Log In</h2>
-        <form className={styles.loginForm}>
+
+        <form className={styles.loginForm} action={action}>
+
+          <h5>{message}</h5>
+
           <div>
             <label htmlFor="email">Email:</label>
             <input
@@ -29,17 +39,11 @@ export default function Layout() {
             />
           </div>
           <button type="submit">Log In</button>
+          <Link href="/create-account">Create an account</Link>
         </form>
+
       </section>
-      <section className={styles.oAuthSection}>
-        <Image
-          src="/github-logo.png"
-          width={50}
-          height={30}
-          alt="GitHub Logo"
-          className={styles.gitLogo}
-        />
-      </section>
+      <GithubLogin />
     </main>
   )
 }

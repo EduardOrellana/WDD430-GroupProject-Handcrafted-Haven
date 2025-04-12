@@ -166,8 +166,16 @@
 .oAuthSection {
   display: flex;
   justify-self: center;
+  align-items: center;
   padding: 10px;
 }
+
+.logInSection a {
+  width: 45%;
+  font-size: small;
+  margin-top: 10px;
+}
+
 
 /******Big Screen Size**********/
 @media screen and (min-width: 700px) {
