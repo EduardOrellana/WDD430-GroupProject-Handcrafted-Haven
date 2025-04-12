@@ -10,10 +10,32 @@ export async function getCategories() {
       return { error: 'Database connection string is missing.', status: 500 };
     }
     const data = await sql`
-        SELECT
+        SELECT DISTINCT
           *
         FROM
           "category";
+    `;
+    if (process.env.ENV === 'development') {
+      console.log('Query result:', data);
+    }
+    return data;
+  } catch (error) {
+    console.error('Database query error:', error);
+    return { error: (error as Error).message, status: 500 };
+  }
+}
+
+export async function getProducts() {
+  try {
+    if (!process.env.POSTGRES_URL) {
+      console.error('POSTGRES_URL environment variable is not defined.');
+      return { error: 'Database connection string is missing.', status: 500 };
+    }
+    const data = await sql`
+        SELECT
+          *
+        FROM
+          "product";
     `;
     if (process.env.ENV === 'development') {
       console.log('Query result:', data);
@@ -217,12 +239,9 @@ export async function getProductById(id: number) {
     if (process.env.ENV === 'development') {
       console.log('Query result:', data);
     }
-    if (data.length === 0) {
-      return { msg: 'Product not found', status: 404 };
-    }
-    if (data.length > 1) {
-      return data[0];
-    }
+    
+    return data[0];
+
   } catch (error) {
     console.error('Database query error:', error);
     return { error: (error as Error).message, status: 500 };

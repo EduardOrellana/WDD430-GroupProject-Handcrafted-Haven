@@ -1,21 +1,17 @@
 import styles from '@/app/users/product/[id]/product.module.css';
 import Image from 'next/image';
-import { getProductById, getProductReview } from '@/app/lib/data';
-
-import { productsObject } from '@/app/lib/temporalData';
+import { getProductById, getProductReviewById } from '@/app/lib/data';
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   const id = params.id;
-  const product = await getProductById(parseInt(id));
-  const reviews = await getProductReview(parseInt(id));
+  console.log('ID:', id);
 
-  if ('error' in product && 'error' in reviews) {
-    console.error(
-      'Error fetching product and reviews:',
-      product.error,
-      reviews.error
-    );
+  const product = await getProductById(parseInt(id));
+  const reviews = await getProductReviewById(parseInt(id));
+
+  if (product?.error) {
+    console.error('Error fetching product and reviews:', product.error);
     console.error('Error fetching product:', product.error);
     return <div>Error fetching product</div>;
   } else {
@@ -43,13 +39,19 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
         <p className={styles.productDescription}>{product.description}</p>
         <div className={styles.productReviews}>
           <h3>Customer Reviews</h3>
-          {/* {reviews.map((review) => (
-            <div key={review.id} className={styles.reviewCard}>
-              <h4>{review.title}</h4>
-              <p>{review.content}</p>
-              <p>Rating: {review.rating}</p>
-            </div>
-          ))} */}
+          {Array.isArray(reviews) ? (
+            reviews.map((review) => (
+              <div key={review.id} className={styles.reviewCard}>
+                <h4>{review.author}</h4>
+                <p>{review.title}</p>
+                <p>{review.text}</p>
+                <p>Rating: {review.rating}</p>
+                <p>Date: {new Date(review.date).toLocaleDateString()}</p>
+              </div>
+            ))
+          ) : (
+            <p>No reviews available</p>
+          )}
         </div>
       </div>
     </div>

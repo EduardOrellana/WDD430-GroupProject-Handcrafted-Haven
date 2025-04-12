@@ -4,9 +4,9 @@ import {
     // productSearchByCategory,
     // productSearchByPriceRange,
     // productSearchByUser, 
-    // getProductById,
+    getProductById,
     // getProductRating,
-    getProductReview,
+    // getProductReview,
     // getUserRating, 
     // getUsers 
   } from '../data';
@@ -18,9 +18,9 @@ import {
       // return Response.json(await productSearchByName(1));
       // return Response.json(await productSearchByPriceRange(40, 60));
       // return Response.json(await productSearchByUser(1));
-      // return Response.json(await getProductById(1));
+      return Response.json(await getProductById(1));
       // return Response.json(await getProductRating(1));
-      return Response.json(await getProductReview(1));
+      // return Response.json(await getProductReview(1));
       // return Response.json(await getUserRating(1));
       // return Response.json(await getUsers());
     } catch (error) {
