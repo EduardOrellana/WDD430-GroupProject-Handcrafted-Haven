@@ -2,10 +2,9 @@
 
 import styles from './product.module.css';
 import Image from 'next/image';
-import { productsObject } from '@/app/lib/temporalData';
 import Link from 'next/link';
+import { productSearchByCategory } from '@/app/lib/data';
 
-const products = productsObject;
 
 export default async function UserProductListByCategory({
   params,
@@ -13,10 +12,22 @@ export default async function UserProductListByCategory({
   params: Promise<{ category: string }>;
 }) {
   const { category } = await params;
+  const products = await productSearchByCategory(parseInt(category));
 
-  const list = products.filter(
-    (product) => product.category.toLowerCase() === category.toLowerCase()
-  );
+  if('error' in products) {
+    console.error('Error fetching products:', products.error);
+    return <div>Error fetching products</div>;
+  } else {
+    console.log('Products:', products);
+  }
+
+  const list = products.map((product) => ({
+    id: product.id,
+    name: product.name,
+    image: product.images[0],
+    description: product.description,
+    price: product.price,
+  }));
 
   const totalProducts = list.length;
 

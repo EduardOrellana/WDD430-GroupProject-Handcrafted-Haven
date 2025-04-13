@@ -1,8 +1,9 @@
 import styles from './product.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
-import { productsObject } from '@/app/lib/temporalData';
-import { getProducts } from '@/app/lib/data';
+import {
+  getProducts,
+} from '@/app/lib/data';
 
 export default async function UserProdutList({
   searchParams,
@@ -19,13 +20,22 @@ export default async function UserProdutList({
   }
 
   const { search } = await searchParams;
-  const products = await data;
+
+  const products = await data.map((product) => ({
+    id: product.id,
+    name: product.name,
+    image: product.images[0],
+    category: product.category,
+    description: product.description,
+    price: product.price,
+  }));
 
   const list = products.filter(
     (product) =>
       typeof search === 'string' &&
-      (product.name.toLowerCase().includes(search.toLowerCase()) ||
-        product.category.toLowerCase().includes(search.toLowerCase()))
+      (product.name?.toLowerCase().includes(search.toLowerCase()) ||
+        product.category?.toLowerCase().includes(search.toLowerCase()) ||
+        product.description?.toLowerCase().includes(search.toLowerCase()))
   );
 
   if (!(search === undefined) && list.length === 0) {
@@ -45,13 +55,13 @@ export default async function UserProdutList({
               href={`/users/product/${product.id}`}
               className={styles.productLink}
             >
-              {/* <Image
-                src={product.image[0]}
+              <Image
+                src={product.image}
                 alt={product.name}
                 width={150}
                 height={150}
                 priority
-              /> */}
+              />
               <h3>{product.name}</h3>
               <p>{product.description}</p>
               <span className="price">{product.price}</span>
@@ -70,13 +80,13 @@ export default async function UserProdutList({
             href={`/users/product/${product.id}`}
             className={styles.productLink}
           >
-            {/* <Image
+            <Image
               src={product.image}
               alt={product.name}
               width={150}
               height={150}
               priority
-            /> */}
+            />
             <h3>{product.name}</h3>
             <p>{product.description}</p>
             <span className="price">{`$${product.price}`}</span>
