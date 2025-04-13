@@ -31,8 +31,6 @@ export default async function UserProductListByCategory({
 
   const totalProducts = list.length;
 
-  const totalProducts = list.length;
-
   if (list.length === 0) {
     return (
       <div className={styles.productlist}>
