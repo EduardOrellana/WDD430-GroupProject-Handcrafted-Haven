@@ -1,12 +1,23 @@
 import styles from '@/app/users/product/[id]/product.module.css';
 import Image from 'next/image';
-import { productsObject } from '@/app/lib/temporalData';
+import { getProductById, getProductReviewById } from '@/app/lib/data';
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   const id = params.id;
+  console.log('ID:', id);
 
-  const product = productsObject.find((item) => item.id === parseInt(id));
+  const product = await getProductById(parseInt(id));
+  const reviews = await getProductReviewById(parseInt(id));
+
+  if (product?.error) {
+    console.error('Error fetching product and reviews:', product.error);
+    console.error('Error fetching product:', product.error);
+    return <div>Error fetching product</div>;
+  } else {
+    console.log('Product:', product);
+    console.log('Reviews:', reviews);
+  }
 
   if (!product) {
     return <div className={styles.error}>Product not found</div>;
@@ -16,7 +27,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     <div className={styles.productDetail}>
       <div className={styles.productImage}>
         <Image
-          src={product.image}
+          src={product.images[0]}
           alt={product.name}
           width={600}
           height={1200}
@@ -28,12 +39,19 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
         <p className={styles.productDescription}>{product.description}</p>
         <div className={styles.productReviews}>
           <h3>Customer Reviews</h3>
-          {product.reviews.map((review, index) => (
-            <div key={index} className={styles.review}>
-              <p className={styles.reviewText}>"{review.text}"</p>
-              <p className={styles.reviewAuthor}>- {review.author}</p>
-            </div>
-          ))}
+          {Array.isArray(reviews) ? (
+            reviews.map((review) => (
+              <div key={review.id} className={styles.reviewCard}>
+                <h4>{review.author}</h4>
+                <p>{review.title}</p>
+                <p>{review.text}</p>
+                <p>Rating: {review.rating}</p>
+                <p>Date: {new Date(review.date).toLocaleDateString()}</p>
+              </div>
+            ))
+          ) : (
+            <p>No reviews available</p>
+          )}
         </div>
       </div>
     </div>

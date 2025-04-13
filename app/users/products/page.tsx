@@ -1,20 +1,41 @@
 import styles from './product.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
-import { productsObject } from '@/app/lib/temporalData';
+import {
+  getProducts,
+} from '@/app/lib/data';
 
 export default async function UserProdutList({
   searchParams,
 }: {
   searchParams: Promise<{ [search: string]: string | string[] | undefined }>;
 }) {
+  const data = await getProducts();
+
+  if ('error' in data) {
+    console.error('Error fetching products:', data.error);
+    return <div>Error fetching products</div>;
+  } else {
+    console.log('Products:', data);
+  }
+
   const { search } = await searchParams;
 
-  const list = productsObject.filter(
+  const products = await data.map((product) => ({
+    id: product.id,
+    name: product.name,
+    image: product.images[0],
+    category: product.category,
+    description: product.description,
+    price: product.price,
+  }));
+
+  const list = products.filter(
     (product) =>
       typeof search === 'string' &&
-      (product.name.toLowerCase().includes(search.toLowerCase()) ||
-        product.category.toLowerCase().includes(search.toLowerCase()))
+      (product.name?.toLowerCase().includes(search.toLowerCase()) ||
+        product.category?.toLowerCase().includes(search.toLowerCase()) ||
+        product.description?.toLowerCase().includes(search.toLowerCase()))
   );
 
   if (!(search === undefined) && list.length === 0) {
@@ -53,7 +74,7 @@ export default async function UserProdutList({
 
   return (
     <div className={styles.productlist}>
-      {productsObject.map((product, index) => (
+      {products.map((product, index) => (
         <div className={styles.productCard} key={index}>
           <Link
             href={`/users/product/${product.id}`}
