@@ -1,10 +1,5 @@
 'use client';
 
-import {
-  AtSymbolIcon,
-  KeyIcon,
-  ExclamationCircleIcon,
-} from '@heroicons/react/24/outline';
 import { Button } from './buttom';
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -67,7 +62,6 @@ function LoginFormComponent() {
                 placeholder="Enter your email address"
                 required
               />
-              <AtSymbolIcon />
             </div>
           </div>
           <div>
@@ -81,7 +75,6 @@ function LoginFormComponent() {
                 required
                 minLength={6}
               />
-              <KeyIcon />
             </div>
           </div>
         </div>
@@ -100,7 +93,6 @@ function LoginFormComponent() {
         <div>
           {errorMessage && (
             <>
-              <ExclamationCircleIcon />
               <p>{errorMessage}</p>
             </>
           )}

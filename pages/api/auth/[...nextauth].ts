@@ -3,7 +3,7 @@ import { authConfig } from '@/auth.config';
 
 console.log('Initializing NextAuth API route');
 
-export default async function handler(req, res) {
+export default async function handler(req: any, res: any) {
   try {
     console.log('Request received at NextAuth API route:', req.url);
     await NextAuth(authConfig)(req, res);
