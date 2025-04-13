@@ -1,25 +1,20 @@
 import { NextResponse, NextRequest } from 'next/server';
-import jwt from 'jsonwebtoken';
+import { getToken } from 'next-auth/jwt';
 
-export async function middleware(request: NextRequest) {
-  const token = request.cookies.get('authToken');
-
+export async function middleware(req: NextRequest) {;
+  const token = await getToken({ req, secret: process.env.AUTH_SECRET });
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Token:', token);
+  }
   if (!token) {
-    return NextResponse.redirect(new URL('/login', request.url));
+    return NextResponse.redirect(new URL('/login', req.url));
   }
-
-  try {
-    if (!process.env.JWT_SECRET) {
-      throw new Error('JWT_SECRET is not defined in environment variables');
-    }
-    const decoded = jwt.verify(token.value, process.env.JWT_SECRET);
-    request.headers.set('user', JSON.stringify(decoded));
-    return NextResponse.next();
-  } catch (error) {
-    return NextResponse.redirect(new URL('/login', request.url));
-  }
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/profile', '/protected-route'],
+  matcher: [
+    '/profile',
+//    '/protected-route',
+  ],
 };
