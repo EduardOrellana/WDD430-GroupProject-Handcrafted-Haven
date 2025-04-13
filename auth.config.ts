@@ -13,8 +13,13 @@ export const authConfig: AuthOptions = {
   callbacks: {
     async session({ session, token }: { session: any; token: any }) {
       if (token && typeof token === 'object' && 'id' in token && 'email' in token) {
-        const { id, email } = token as { id: string; email: string };
-        session.user = { ...session.user, id, email };
+        const { id, email, username, profile_pic_url } = token as {
+          id: string;
+          email: string;
+          username?: string;
+          profile_pic_url?: string;
+        };
+        session.user = { id, email, username, profile_pic_url };
       }
       console.log('Session callback:', session);
       return session;
