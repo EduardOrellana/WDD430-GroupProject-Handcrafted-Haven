@@ -23,6 +23,8 @@ export const authConfig: AuthOptions = {
       if (user) {
         token.id = user.id;
         token.email = user.email;
+        token.username = user.username;
+        token.profile_pic_url = user.profile_pic_url;
       }
       console.log('JWT callback:', token);
       return token;
