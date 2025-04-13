@@ -142,14 +142,14 @@
 
 /*Home Page Design.*/
 .home {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 40px; 
   padding: 20px;
   margin: 0 auto;
   max-width: 1200px;
-  justify-content: center;
-  align-content: center ;
+  text-align: center;
+  flex-wrap: wrap;
 }
 
 .home div {
@@ -167,6 +167,26 @@
   margin: 0 auto;
   padding: 10px;
   width: 100%;
+  text-align: center;
+}
+
+/*Founders Desing*/
+.founders{
+  justify-content: center;
+  gap: 40px; 
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 1200px;
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+.founders img{
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.footer {
   text-align: center;
 }
 
@@ -195,7 +215,22 @@
     text-align: right;
   }
   
-
+  .homePage {  display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 0.3fr 1.7fr;
+    gap: 15px 15px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "mainContainer mainContainer searchContainer"
+      "mainContainer mainContainer linksContainer";
+  }
+  
+  .mainContainer { grid-area: mainContainer; }
+  
+  .searchContainer { grid-area: searchContainer; }
+  
+  .linksContainer { grid-area: linksContainer; }
+  
 
 }
 

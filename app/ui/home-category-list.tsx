@@ -14,15 +14,16 @@ export default async function CategoryList() {
     console.log('Categories:', data);
   }
 
-  const uniqueCategories = Array.from(new Set(data.map((cat) => cat.name)));
+  const uniqueCategories = data.map((cat) => ({ id: cat.id, name: cat.name }));
+  console.log('Unique Categories:', uniqueCategories);
 
   return (
     <div className={styles.categoryList}>
       <h2>Categories List</h2>
       <ul>
-        {uniqueCategories.map((category, index) => (
-          <li className="card" key={index}>
-            <Link href={`/users/products/${category}`}>{category}</Link>
+        {uniqueCategories.map((category) => (
+          <li className="card" key={category.id}>
+            <Link href={`/users/products/${category.id}`}>{category.name}</Link>
           </li>
         ))}
       </ul>

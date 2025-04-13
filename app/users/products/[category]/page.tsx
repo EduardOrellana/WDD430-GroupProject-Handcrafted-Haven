@@ -1,7 +1,8 @@
 import styles from './product.module.css';
 import Image from 'next/image';
-import { productSearchByCategory, getCategoryIdByName } from '@/app/lib/data';
 import Link from 'next/link';
+import { productSearchByCategory } from '@/app/lib/data';
+
 
 export default async function UserProductListByCategory({
   params,
@@ -9,31 +10,23 @@ export default async function UserProductListByCategory({
   params: Promise<{ category: string }>;
 }) {
   const { category } = await params;
+  const products = await productSearchByCategory(parseInt(category));
 
-  // Decode the category parameter to handle special characters like spaces and '&'
-  const decodedCategory = decodeURIComponent(category);
-
-  const categoryId = await getCategoryIdByName(decodedCategory);
-
-  if (categoryId?.error) {
-    return (
-      <div className={styles.productlist}>
-        <h2>Error: {categoryId.error}</h2>
-      </div>
-    );
+  if('error' in products) {
+    console.error('Error fetching products:', products.error);
+    return <div>Error fetching products</div>;
+  } else {
+    console.log('Products:', products);
   }
 
-  const response = await productSearchByCategory(categoryId);
+  const list = products.map((product) => ({
+    id: product.id,
+    name: product.name,
+    image: product.images[0],
+    description: product.description,
+    price: product.price,
+  }));
 
-  if (!response || 'error' in response) {
-    return (
-      <div className={styles.productlist}>
-        <h2>Error: {response?.error || 'Unknown error occurred'}</h2>
-      </div>
-    );
-  }
-
-  const list = Array.isArray(response) ? response : [];
   const totalProducts = list.length;
 
   if (list.length === 0) {
@@ -48,9 +41,9 @@ export default async function UserProductListByCategory({
     <>
       <div className={styles.productlist}>
         <h2>
-          {totalProducts} products found in {decodedCategory}
+          {totalProducts} products found in {category}
         </h2>
-        <h2>Products in {decodedCategory}</h2>
+        <h2>Products in {category}</h2>
       </div>
       <div className={styles.productlist}>
         {list.map((product: any, index: any) => (
