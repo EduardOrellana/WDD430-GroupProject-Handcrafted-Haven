@@ -51,7 +51,7 @@ export const authConfig: AuthOptions = {
         console.log('Authorizing user with email:', email);
 
         try {
-          const user = await sql`SELECT * FROM "user" WHERE email = ${email}`;
+          const user = await sql`SELECT id, email, username, profile_pic_url, password FROM "user" WHERE email = ${email}`;
           if (!user[0]) {
             console.error('User not found');
             return null;
@@ -64,7 +64,12 @@ export const authConfig: AuthOptions = {
           }
 
           console.log('User authorized:', user[0]);
-          return { id: user[0].id, email: user[0].email };
+          return {
+            id: user[0].id,
+            email: user[0].email,
+            username: user[0].username,
+            profile_pic_url: user[0].profile_pic_url,
+          };
         } catch (error) {
           console.error('Error during authorization:', error);
           return null;
