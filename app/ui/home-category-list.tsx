@@ -7,11 +7,11 @@ export default async function CategoryList() {
 
   const data = await getCategories();
 
-  if ('error' in data) {
-    console.error('Error fetching categories:', data.error);
+  if ("error" in data) {
+    console.error("Error fetching categories:", data.error);
     return <div>Error fetching categories</div>;
   } else {
-    console.log('Categories:', data);
+    console.log("Categories:", data);
   }
 
   const uniqueCategories = data.map((cat) => ({ id: cat.id, name: cat.name }));
@@ -23,7 +23,7 @@ export default async function CategoryList() {
       <ul>
         {uniqueCategories.map((category) => (
           <li className="card" key={category.id}>
-            <Link href={`/users/products/${category.id}`}>{category.name}</Link>
+            <Link  href={`/users/products?category=${category.id}`} >{category.name}</Link>
           </li>
         ))}
       </ul>
