@@ -1,42 +1,56 @@
-import styles from './product.module.css';
-import Image from 'next/image';
-import Link from 'next/link';
-import {
-  getProducts,
-} from '@/app/lib/data';
+import styles from "./product.module.css";
+import Image from "next/image";
+import Link from "next/link";
+import { getCategories, getProducts } from "@/app/lib/data";
+import Filter from "./Filter";
 
 export default async function UserProdutList({
   searchParams,
 }: {
-  searchParams: Promise<{ [search: string]: string | string[] | undefined }>;
+  searchParams: Promise<{ [search: string]: string | undefined }>;
 }) {
-  const data = await getProducts();
+  const { search, category, maxPrice } = await searchParams;
+  const categories = await getCategories();
 
-  if ('error' in data) {
-    console.error('Error fetching products:', data.error);
-    return <div>Error fetching products</div>;
+  if ("error" in categories) {
+    console.error("Error fetching categories:", categories.error);
+    return <div>Error fetching categories</div>;
   } else {
-    console.log('Products:', data);
+    console.log("Categories:", categories);
   }
 
-  const { search } = await searchParams;
+  const uniqueCategories = Array.from(
+    new Set(categories.map((cat) => cat))
+  ) as unknown as { id: string; name: string }[];
 
-  const products = await data.map((product) => ({
-    id: product.id,
-    name: product.name,
-    image: product.images[0],
-    category: product.category,
-    description: product.description,
-    price: product.price,
-  }));
+  const data = await getProducts({
+    search: search ? search : undefined,
+    category: category ? category : undefined,
+    maxPrice: maxPrice ? parseInt(maxPrice, 10) : undefined,
+  });
 
-  const list = products.filter(
-    (product) =>
-      typeof search === 'string' &&
-      (product.name?.toLowerCase().includes(search.toLowerCase()) ||
-        product.category?.toLowerCase().includes(search.toLowerCase()) ||
-        product.description?.toLowerCase().includes(search.toLowerCase()))
-  );
+  if (!data) {
+    console.error("Error fetching products:", data);
+    return <div>Error fetching products</div>;
+  } else {
+    console.log("Products:", data);
+  }
+
+  const list: {
+    name: string;
+    description: string;
+    id: string;
+    price: string;
+    category: string;
+    images: string[]
+  }[] = (data || []) as unknown as {
+    name: string;
+    description: string;
+    id: string;
+    price: string;
+    category: string;
+    images: string[]
+  }[];
 
   if (!(search === undefined) && list.length === 0) {
     return (
@@ -46,37 +60,28 @@ export default async function UserProdutList({
     );
   }
 
-  if (!(search === undefined) && list.length > 0) {
-    return (
-      <div className={styles.productlist}>
-        {list.map((product, index) => (
-          <div className={styles.productCard} key={index}>
-            <Link
-              href={`/users/product/${product.id}`}
-              className={styles.productLink}
-            >
-              <Image
-                src={product.image}
-                alt={product.name}
-                width={150}
-                height={150}
-                priority
-              />
-              <h3>{product.name}</h3>
-              <p>{product.description}</p>
-              <span className="price">{product.price}</span>
-            </Link>
-          </div>
-        ))}
-      </div>
-    );
-  }
+
+  const products = await list.map((product) => ({
+    id: product.id,
+    name: product.name,
+    image: product.images[0],
+    category: product.category,
+    description: product.description,
+    price: product.price,
+  }));
 
   return (
-    <div className={styles.productlist}>
-      {products.map((product, index) => (
-        <div className={styles.productCard} key={index}>
-          <Link
+    <div style={{ display: "flex" }}>
+      <Filter
+        category={category}
+        maxPrice={maxPrice}
+        search={search}
+        categories={uniqueCategories}
+      />
+      <div className={styles.productlist}>
+        {products.map((product, index) => (
+          <div className={styles.productCard} key={index}>
+            <Link
             href={`/users/product/${product.id}`}
             className={styles.productLink}
           >
@@ -91,8 +96,9 @@ export default async function UserProdutList({
             <p>{product.description}</p>
             <span className="price">{`$${product.price}`}</span>
           </Link>
-        </div>
-      ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
