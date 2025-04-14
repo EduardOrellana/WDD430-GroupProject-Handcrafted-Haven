@@ -1,9 +1,7 @@
 import styles from '../page.module.css';
-import { profileObject } from '@/app/lib/temporalData';
 import { getUsers } from '@/app/lib/data';
 import Link from 'next/link';
 
-const sellersDommyData = profileObject;
 
 export default async function SellerList() {
   const data = await getUsers();

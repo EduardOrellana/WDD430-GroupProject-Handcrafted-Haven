@@ -209,12 +209,7 @@ export async function productSearchByCategory(category_id: number) {
     if (process.env.ENV === 'development') {
       console.log('Query result:', data);
     }
-    if (data.length === 0) {
-      return { msg: 'Products not found', status: 404 };
-    }
-    if (data.length > 1) {
-      return data;
-    }
+    return data;
   } catch (error) {
     console.error('Database query error:', error);
     return { error: (error as Error).message, status: 500 };

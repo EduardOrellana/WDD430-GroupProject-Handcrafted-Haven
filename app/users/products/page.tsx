@@ -41,11 +41,15 @@ export default async function UserProdutList({
     description: string;
     id: string;
     price: string;
+    category: string;
+    images: string[]
   }[] = (data || []) as unknown as {
     name: string;
     description: string;
     id: string;
     price: string;
+    category: string;
+    images: string[]
   }[];
 
   if (!(search === undefined) && list.length === 0) {
@@ -56,6 +60,16 @@ export default async function UserProdutList({
     );
   }
 
+
+  const products = await list.map((product) => ({
+    id: product.id,
+    name: product.name,
+    image: product.images[0],
+    category: product.category,
+    description: product.description,
+    price: product.price,
+  }));
+
   return (
     <div style={{ display: "flex" }}>
       <Filter
@@ -65,16 +79,23 @@ export default async function UserProdutList({
         categories={uniqueCategories}
       />
       <div className={styles.productlist}>
-        {list.map((product, index) => (
+        {products.map((product, index) => (
           <div className={styles.productCard} key={index}>
             <Link
-              href={`/users/product/${product.id}`}
-              className={styles.productLink}
-            >
-              <h3>{product.name}</h3>
-              <p>{product.description}</p>
-              <span className="price">{`$${product.price}`}</span>
-            </Link>
+            href={`/users/product/${product.id}`}
+            className={styles.productLink}
+          >
+            <Image
+              src={product.image}
+              alt={product.name}
+              width={150}
+              height={150}
+              priority
+            />
+            <h3>{product.name}</h3>
+            <p>{product.description}</p>
+            <span className="price">{`$${product.price}`}</span>
+          </Link>
           </div>
         ))}
       </div>
