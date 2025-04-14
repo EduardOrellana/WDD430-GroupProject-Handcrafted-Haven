@@ -25,24 +25,74 @@ export async function getCategories() {
   }
 }
 
-export async function getProducts() {
+export async function getProducts({
+  category,
+  maxPrice,
+  search,
+}: {
+  search?: string;
+  category?: string;
+  maxPrice?: number;
+} = {}) {
+  const isWhere = search || maxPrice || category;
   try {
     if (!process.env.POSTGRES_URL) {
-      console.error('POSTGRES_URL environment variable is not defined.');
-      return { error: 'Database connection string is missing.', status: 500 };
+      console.error("POSTGRES_URL environment variable is not defined.");
+      return { error: "Database connection string is missing.", status: 500 };
     }
-    const data = await sql`
-        SELECT
-          *
-        FROM
-          "product";
+
+    if (isWhere) {
+      if (search && !maxPrice && !category) {
+        return await sql`
+        SELECT * FROM "product" p WHERE
+       p.name ILIKE ${"%" + search + "%"}
     `;
-    if (process.env.ENV === 'development') {
-      console.log('Query result:', data);
+      } else if (maxPrice && !search && !category) {
+        return await sql`
+        SELECT * FROM "product" p WHERE
+         p.price <= ${maxPrice}
+        `;
+      } else if (category && !maxPrice && !search) {
+        return await sql`
+        SELECT * FROM "product" p WHERE
+         p.category_id = ${category}
+        `;
+      } else if (category && maxPrice && search) {
+        return await sql`
+      SELECT * FROM "product" p WHERE
+        p.name ILIKE ${"%" + search + "%"}
+        AND
+        p.category_id = ${category}
+        AND
+        p.price <= ${maxPrice}
+    `;
+      } else if (category && maxPrice) {
+        return await sql`
+        SELECT * FROM "product" p WHERE
+          p.category_id = ${category}
+          AND
+          p.price <= ${maxPrice}
+      `;
+      } else if (category && search) {
+        return await sql`
+        SELECT * FROM "product" p WHERE
+          p.name ILIKE ${"%" + search + "%"}
+          AND
+          p.category_id = ${category}
+      `;
+      } else if (maxPrice && search) {
+        return await sql`
+        SELECT * FROM "product" p WHERE
+          p.name ILIKE ${"%" + search + "%"}
+          AND
+          p.price <= ${maxPrice}
+      `;
+      }
+    } else {
+      return await sql`SELECT * FROM "product" p`;
     }
-    return data;
   } catch (error) {
-    console.error('Database query error:', error);
+    console.error("Database query error:", error);
     return { error: (error as Error).message, status: 500 };
   }
 }
