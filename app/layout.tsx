@@ -1,32 +1,20 @@
-import type { Metadata } from "next";
+'use client';
+
+import { SessionProvider } from 'next-auth/react';
 import "./globals.css";
 import Header from "./ui/header";
 import Footer from "./ui/footer";
-import styles from "./page.module.css"
+import styles from "./page.module.css";
 
-export const metadata: Metadata = {
-  title: "Heavenly Haven Art Store",
-  description: "An art store for the most fervent crafters",
-};
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-
-  // const pathname = typeof window !== "undefined" && window.location.pathname === "/login";
-  // const isLoginPage = pathname === "/login";
-  // const isSearchPage = pathname === "/search";
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={styles.body}>
-        <Header />
-        {/* {!pathname && <Search />} */}
-        <main className={styles.main}>
-          {children}
-        </main>
-        <Footer />
+      <body>
+        <SessionProvider>
+          <Header />
+          <main className={styles.main}>{children}</main>
+          <Footer />
+        </SessionProvider>
       </body>
     </html>
   );
