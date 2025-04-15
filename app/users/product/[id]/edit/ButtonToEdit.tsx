@@ -13,7 +13,11 @@ export default async function ButtonEditProduct({
 }) {
   const session = await getServerSession(authConfig);
   const { ProductId } = params;
-  const { id } = session?.user as User;
+  const { id } = (session?.user || {}) as User;
+
+  if (!id) {
+    return;
+  }
 
   console.log('User Id:', id);
 
