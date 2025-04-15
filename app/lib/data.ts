@@ -216,7 +216,7 @@ export async function productSearchByCategory(category_id: number) {
   }
 }
 
-export async function productSearchByUser(user_id: number) {
+export async function productSearchByUser(user_id: number | string) {
   try {
     if (!process.env.POSTGRES_URL) {
       console.error('POSTGRES_URL environment variable is not defined.');
