@@ -188,6 +188,8 @@
 
 .footer {
   text-align: center;
+  background-color: gray;
+  padding: 5px 0px;
 }
 
 /******Big Screen Size**********/
