@@ -452,7 +452,7 @@ export async function getProductReviewById(product_id: number) {
   }
 }
 
-export async function updateProductById(id: number, name: string, price: number, description:string, images:[string]) {
+export async function updateProductById(id: number, name: string, price: number, description: string, images: string[]) {
   try {
     if (!process.env.POSTGRES_URL) {
       console.error('POSTGRES_URL environment variable is not defined.');

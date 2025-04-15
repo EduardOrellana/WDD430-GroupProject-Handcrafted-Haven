@@ -1,14 +1,16 @@
 "use client";
 
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { getSession } from 'next-auth/react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import { getProductById, updateProductById, deleteProductById } from '@/app/lib/data';
 
-export default function EditProductPage() {
+interface ReviewFormProps {
+  productId: string | null;
+}
+
+export default function ReviewForm({ productId }: ReviewFormProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const id = searchParams ? searchParams.get('id') : null;
   const [product, setProduct] = useState<{ name: string; description: string; price: string; image: string; user_id: number } | null>(null);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -17,7 +19,7 @@ export default function EditProductPage() {
 
   useEffect(() => {
     async function fetchProduct() {
-      if (!id) return;
+      if (!productId) return;
 
       const session = await getSession();
       if (!session) {
@@ -26,17 +28,17 @@ export default function EditProductPage() {
       }
 
       const userId = session.user.id;
-      const productData = await getProductById(Number(id));
+      const productData = await getProductById(Number(productId));
 
       if (productData && productData.user_id !== userId) {
-        router.push(`/users/product/${id}`);
+        router.push(`/users/product/${productId}`);
         return;
       }
 
       const formattedProductData = {
         name: productData.name,
         description: productData.description,
-        price: productData.price.toString(), // Convert price to string
+        price: productData.price.toString(),
         image: productData.image,
         user_id: productData.user_id,
       };
@@ -44,12 +46,12 @@ export default function EditProductPage() {
       setProduct(formattedProductData);
       setName(formattedProductData.name);
       setDescription(formattedProductData.description);
-      setPrice(formattedProductData.price); // Use string directly
+      setPrice(formattedProductData.price);
       setImage(formattedProductData.image);
     }
 
     fetchProduct();
-  }, [id, router]);
+  }, [productId, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,31 +60,31 @@ export default function EditProductPage() {
     const updatedProduct = {
       name,
       description,
-      price: Number(price), // Convert price to number
-      images: image.split(',').map((url) => url.trim()), // Convert comma-separated string to array of URLs
+      price: Number(price),
+      images: image.split(',').map((url) => url.trim()),
     };
 
     const result = await updateProductById(
-      Number(id),
+      Number(productId),
       updatedProduct.name,
-      updatedProduct.price, // Pass as number
+      updatedProduct.price,
       updatedProduct.description,
-      updatedProduct.images // Pass images array
+      updatedProduct.images
     );
 
     if (result && !result.error) {
-      router.push(`/users/product/${id}`);
+      router.push(`/users/product/${productId}`);
     } else {
       alert('Error updating product');
     }
   };
 
   const handleDelete = async () => {
-    if (!id) return;
+    if (!productId) return;
 
-    const result = await deleteProductById(Number(id));
+    const result = await deleteProductById(Number(productId));
     if (result && !result.error) {
-      router.push(`/users/${id}`);
+      router.push(`/users`);
     } else {
       alert('Error deleting product');
     }
