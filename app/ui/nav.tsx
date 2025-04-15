@@ -25,7 +25,7 @@ export default function Navigation() {
           href="/profile"
           className={pathName === '/profile' ? styles.activePage : ''}
         >
-          My Profile
+          My Profile  
         </Link>
         <div>|</div>
         <Link
