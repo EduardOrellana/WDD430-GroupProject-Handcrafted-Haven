@@ -25,24 +25,74 @@ export async function getCategories() {
   }
 }
 
-export async function getProducts() {
+export async function getProducts({
+  category,
+  maxPrice,
+  search,
+}: {
+  search?: string;
+  category?: string;
+  maxPrice?: number;
+} = {}) {
+  const isWhere = search || maxPrice || category;
   try {
     if (!process.env.POSTGRES_URL) {
-      console.error('POSTGRES_URL environment variable is not defined.');
-      return { error: 'Database connection string is missing.', status: 500 };
+      console.error("POSTGRES_URL environment variable is not defined.");
+      return { error: "Database connection string is missing.", status: 500 };
     }
-    const data = await sql`
-        SELECT
-          *
-        FROM
-          "product";
+
+    if (isWhere) {
+      if (search && !maxPrice && !category) {
+        return await sql`
+        SELECT * FROM "product" p WHERE
+       p.name ILIKE ${"%" + search + "%"}
     `;
-    if (process.env.ENV === 'development') {
-      console.log('Query result:', data);
+      } else if (maxPrice && !search && !category) {
+        return await sql`
+        SELECT * FROM "product" p WHERE
+         p.price <= ${maxPrice}
+        `;
+      } else if (category && !maxPrice && !search) {
+        return await sql`
+        SELECT * FROM "product" p WHERE
+         p.category_id = ${category}
+        `;
+      } else if (category && maxPrice && search) {
+        return await sql`
+      SELECT * FROM "product" p WHERE
+        p.name ILIKE ${"%" + search + "%"}
+        AND
+        p.category_id = ${category}
+        AND
+        p.price <= ${maxPrice}
+    `;
+      } else if (category && maxPrice) {
+        return await sql`
+        SELECT * FROM "product" p WHERE
+          p.category_id = ${category}
+          AND
+          p.price <= ${maxPrice}
+      `;
+      } else if (category && search) {
+        return await sql`
+        SELECT * FROM "product" p WHERE
+          p.name ILIKE ${"%" + search + "%"}
+          AND
+          p.category_id = ${category}
+      `;
+      } else if (maxPrice && search) {
+        return await sql`
+        SELECT * FROM "product" p WHERE
+          p.name ILIKE ${"%" + search + "%"}
+          AND
+          p.price <= ${maxPrice}
+      `;
+      }
+    } else {
+      return await sql`SELECT * FROM "product" p`;
     }
-    return data;
   } catch (error) {
-    console.error('Database query error:', error);
+    console.error("Database query error:", error);
     return { error: (error as Error).message, status: 500 };
   }
 }
@@ -234,9 +284,7 @@ export async function getProductById(id: number) {
     if (process.env.ENV === 'development') {
       console.log('Query result:', data);
     }
-    
     return data[0];
-
   } catch (error) {
     console.error('Database query error:', error);
     return { error: (error as Error).message, status: 500 };
@@ -327,7 +375,7 @@ export async function getUserRatingById(user_id: number) {
       return { msg: 'No rating found', status: 404 };
     }
     if (data.length > 1) {
-      const ratingSum = data.reduce((sum, item) => sum + item.rating, 0);
+      const ratingSum = data.reduce((sum: number, item: any) => sum + item.rating, 0);
       const totalRating = (ratingSum / data.length || 0).toFixed(2);
       if (process.env.ENV === 'development') {
         console.log('Total Rating:', totalRating);
@@ -358,7 +406,7 @@ export async function getProductRatingById(product_id: number) {
       return { msg: 'No rating found', status: 404 };
     }
     if (data.length > 1) {
-      const ratingSum = data.reduce((sum, item) => sum + item.rating, 0);
+      const ratingSum = data.reduce((sum: number, item: any) => sum + item.rating, 0);
       const totalRating = (ratingSum / data.length || 0).toFixed(2);
       if (process.env.ENV === 'development') {
         console.log('Total Rating:', totalRating);
@@ -592,6 +640,28 @@ export async function getUsers() {
       console.log('Query result:', data);
     }
     return data;
+  } catch (error) {
+    console.error('Database query error:', error);
+    return { error: (error as Error).message, status: 500 };
+  }
+}
+
+export async function getCategoryIdByName(categoryName: string) {
+  try {
+    if (!process.env.POSTGRES_URL) {
+      console.error('POSTGRES_URL environment variable is not defined.');
+      return { error: 'Database connection string is missing.', status: 500 };
+    }
+    const data = await sql`
+        SELECT id FROM "category" WHERE name = ${categoryName};
+    `;
+    if (process.env.ENV === 'development') {
+      console.log('Query result:', data);
+    }
+    if (data.length === 0) {
+      return { error: 'Category not found', status: 404 };
+    }
+    return data[0].id; // Return only the ID
   } catch (error) {
     console.error('Database query error:', error);
     return { error: (error as Error).message, status: 500 };

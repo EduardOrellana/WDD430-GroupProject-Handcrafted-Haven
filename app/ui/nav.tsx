@@ -4,10 +4,12 @@ import { useState } from 'react';
 import styles from '@/app/page.module.css';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useSession, signOut } from 'next-auth/react';
 
 export default function Navigation() {
   const [open, setOpen] = useState(false);
   const pathName = usePathname();
+  const { data: session } = useSession();
 
   return (
     <>
@@ -33,13 +35,16 @@ export default function Navigation() {
           General Market
         </Link>
         <div>|</div>
-        <Link
-          href="/login"
-          className={pathName === '/login' ? styles.activePage : ''}
-        >
-          Login
-        </Link>
-        {/* <Link href={"/signup"} className={pathName === "/signup" ? styles.active : ""}>Sign Up</Link> */}
+        {session ? (
+          <button onClick={() => signOut()}>Logout</button>
+        ) : (
+          <Link
+            href="/login"
+            className={pathName === '/login' ? styles.activePage : ''}
+          >
+            Login
+          </Link>
+        )}
       </nav>
     </>
   );
