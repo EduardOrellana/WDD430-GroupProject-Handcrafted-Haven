@@ -8,8 +8,13 @@ export async function middleware(req: NextRequest) {
   }
   if (!token) {
     return NextResponse.redirect(new URL('/login', req.url));
-  }
-  return NextResponse.redirect(new URL('/profile', req.url));
+  } 
+  // else {
+  //   const userId = token.sub;
+  //   console.log('User ID from token:', userId);
+  //   return NextResponse.redirect(new URL('/profile', req.url));
+  // }
+  
 }
 
 export const config = {

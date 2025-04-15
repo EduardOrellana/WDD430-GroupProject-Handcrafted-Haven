@@ -262,6 +262,7 @@ export async function getProductById(id: number) {
     }
     const data = await sql`
         select
+          p.id,
           p.name,
           p.price,
           p.description,

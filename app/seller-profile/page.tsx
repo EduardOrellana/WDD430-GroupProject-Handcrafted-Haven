@@ -1,17 +1,29 @@
-'use client';
+// app/profile/page.tsx
+import { getUserById } from '../lib/data';
+import { getToken } from 'next-auth/jwt';
+import { NextRequest } from 'next/server';
 
-import Link from "next/link";
-import styles from "./sellers.module.css";
+export default async function ProfilePage(req: NextRequest) {
+  console.log('Request Headers:', req.headers);
+  console.log('AUTH_SECRET:', process.env.AUTH_SECRET);
 
-export default function Home() {
-  return (
-    <section className={styles.sellers}>
-      <h1 className={styles.title}>Sellers Page </h1>
-      <p></p>
-      <div>
-        <Link href={"/seller-profile/products"}>Check My Products</Link>
-      </div>
-    </section>
-  );
+  // Extract the token from the request
+  const token = await getToken({ req, secret: process.env.AUTH_SECRET });
+
+  if (!token || !token.sub) {
+    console.error('No valid token found');
+    console.log('Token:', token);
+    return <div>Error: Unable to fetch user profile</div>;
+  }
+
+  const id = token.sub;
+  console.log('User ID from token:', id);
+
+  const profile = (await getUserById(parseInt(id))) as unknown as {
+    username: string;
+    email: string;
+    profile_pic_url: string;
+  };
+
+  return <>Probando</>;
 }
-
