@@ -3,7 +3,7 @@ import styles from "./page.module.css";
 import Image from "next/image";
 import { productsObject } from "@/app/lib/temporalData";
 import Link from "next/link";
-import { productSearchByUser } from "@/app/lib/data";
+import { getUserById, productSearchByUser } from "@/app/lib/data";
 
 export default async function SellerProfile({
   params,
@@ -11,7 +11,13 @@ export default async function SellerProfile({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const profile = profileObject.find((profile) => profile.id === parseInt(id));
+  const profile: {
+    username: string;
+    email: string;
+    profile_pic_url: string;
+  } = await getUserById(id);
+
+  console.log("aca", profile);
   const data = await productSearchByUser(id);
 
   const list: {
@@ -49,15 +55,17 @@ export default async function SellerProfile({
 
   return (
     <>
-      <div className={styles.sellerProfile}>
+      {/*
+<div className={styles.sellerProfile}>
+
         <h2>Seller Profile</h2>
         <div className={styles.profileCard}>
-          <h3>{profile?.name}</h3>
-          <p>{profile?.description}</p>
+
         </div>
       </div>
+      */}
+      <h2>Products by {profile?.username}</h2>
       <div className={styles.productlist}>
-        <h2>Products by {profile?.name}</h2>
         {products.map((product, index) => (
           <div className={styles.productCard} key={index}>
             <Image

@@ -293,7 +293,7 @@ export async function getProductById(id: number) {
   }
 }
 
-export async function getUserById(id: number) {
+export async function getUserById(id: number | string) {
   try {
     if (!process.env.POSTGRES_URL) {
       console.error('POSTGRES_URL environment variable is not defined.');
@@ -310,13 +310,15 @@ export async function getUserById(id: number) {
         WHERE
           id = ${id};
     `;
+
+
     if (process.env.ENV === 'development') {
       console.log('Query result:', data);
     }
     if (data.length === 0) {
       return { msg: 'User not found', status: 404 };
     }
-    if (data.length > 1) {
+    if (data.length > 0) {
       return data[0];
     }
   } catch (error) {
