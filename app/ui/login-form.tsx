@@ -12,7 +12,9 @@ function LoginFormComponent() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const returnUrl = searchParams ? searchParams.get('returnUrl') || '/' : '/';
+  const returnUrl = searchParams
+    ? searchParams.get('returnUrl') || '/profile'
+    : '/profile';
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -86,8 +88,7 @@ function LoginFormComponent() {
 
         <div>
           <p>
-            Don&apos;t have an account?{' '}
-            <a href="/signup">Sign up</a>
+            Don&apos;t have an account? <a href="/signup">Sign up</a>
           </p>
         </div>
         <div>
