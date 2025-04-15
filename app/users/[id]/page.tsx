@@ -11,13 +11,12 @@ export default async function SellerProfile({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const profile: {
+  const profile = (await getUserById(id)) as unknown as {
     username: string;
     email: string;
     profile_pic_url: string;
-  } = await getUserById(id);
+  };
 
-  console.log("aca", profile);
   const data = await productSearchByUser(id);
 
   const list: {
