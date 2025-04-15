@@ -1,5 +1,3 @@
-// app/users/products/[id]/page.tsx
-
 import styles from './product.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -48,10 +46,10 @@ export default async function UserProductListByCategory({
         <h2>Products in {category}</h2>
       </div>
       <div className={styles.productlist}>
-        {list.map((product, index) => (
+        {list.map((product: any, index: any) => (
           <div className={styles.productCard} key={index}>
             <Image
-              src={product.image}
+              src={product.images[0]}
               alt={product.name}
               width={150}
               height={150}

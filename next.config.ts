@@ -8,7 +8,8 @@ const nextConfig: NextConfig = {
 
   images: {
     domains: [
-      "i.etsystatic.com","m.media-amazon.com",
+      "i.etsystatic.com",
+      "m.media-amazon.com",
       "yankeecandle.imgix.net",
       "shop.kitchensforgood.org",
       "www.winterfieldstudios.com",
