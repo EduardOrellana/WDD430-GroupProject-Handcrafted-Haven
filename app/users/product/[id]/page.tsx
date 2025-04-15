@@ -1,6 +1,7 @@
 import styles from '@/app/users/product/[id]/product.module.css';
 import Image from 'next/image';
 import { getProductById, getProductReviewById } from '@/app/lib/data';
+import ButtonToEdit from './edit/ButtonToEdit';
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
@@ -12,11 +13,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
 
   if (product?.error) {
     console.error('Error fetching product and reviews:', product.error);
-    console.error('Error fetching product:', product.error);
     return <div>Error fetching product</div>;
-  } else {
-    console.log('Product:', product);
-    console.log('Reviews:', reviews);
   }
 
   if (!product) {
@@ -24,7 +21,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
   }
 
   return (
-    <div className={styles.productDetail}>
+    <>
       <div className={styles.productImage}>
         <Image
           src={product.images[0]}
@@ -39,7 +36,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
         <p className={styles.productDescription}>{product.description}</p>
         <div className={styles.productReviews}>
           <h3>Customer Reviews</h3>
-          {Array.isArray(reviews) ? (
+          {Array.isArray(reviews) && reviews.length > 0 ? (
             reviews.map((review) => (
               <div key={review.id} className={styles.reviewCard}>
                 <h4>{review.author}</h4>
@@ -53,7 +50,9 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
             <p>No reviews available</p>
           )}
         </div>
+        {/* Pass ProductId to ButtonToEdit */}
+        <ButtonToEdit params={{ ProductId: id }} />
       </div>
-    </div>
+    </>
   );
 }
