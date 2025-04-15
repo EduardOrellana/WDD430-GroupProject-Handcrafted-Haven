@@ -267,7 +267,8 @@ export async function getProductById(id: number) {
           p.description,
           p.images,
           c.name AS category,
-          u.username AS "owner"
+          u.username AS "owner",
+          u.id as "idUsername"
         from
           "product" p
         right join
