@@ -510,25 +510,6 @@ export async function createProduct(name: string, price: number, description:str
   }
 }
 
-export async function createReview(product_id: number, user_id: number, content: string, rating: number) {
-  try {
-    if (!process.env.POSTGRES_URL) {
-      console.error('POSTGRES_URL environment variable is not defined.');
-      return { error: 'Database connection string is missing.', status: 500 };
-    }
-    const data = await sql`
-      INSERT INTO "review" (product_id, user_id, content, rating)
-      VALUES (${product_id}, ${user_id}, ${content}, ${rating});
-    `;
-    if (process.env.ENV === 'development') {
-      console.log('Query result:', data);
-    }
-    return data[0];
-  } catch (error) {
-    console.error('Database query error:', error);
-    return { error: (error as Error).message, status: 500 };
-  }
-}
 
 export async function updateReviewById(id: number, content: string, rating: number) {
   try {
