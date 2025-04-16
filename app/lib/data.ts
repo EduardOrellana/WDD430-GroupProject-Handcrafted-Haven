@@ -588,18 +588,52 @@ export async function createUser(username: string, profile_pic_url: string, emai
   }
 }
 
-export async function updateUserById(id: number, username: string, profile_pic_url: string, email: string, password: string) {
+export async function updateUserById(id: number, username?: string, profile_pic_url?: string, email?: string, password?: string) {
   try {
     if (!process.env.POSTGRES_URL) {
       console.error('POSTGRES_URL environment variable is not defined.');
       return { error: 'Database connection string is missing.', status: 500 };
     }
-    const data = await sql`
-      UPDATE "user" SET username = ${username}, profile_pic_url = ${profile_pic_url}, email = ${email}, password = ${password} WHERE "id" = ${id};
+
+    const updates: string[] = [];
+    const values: any[] = [];
+
+    if (username) {
+      updates.push('username = $' + (updates.length + 1));
+      values.push(username);
+    }
+    if (profile_pic_url) {
+      updates.push('profile_pic_url = $' + (updates.length + 1));
+      values.push(profile_pic_url);
+    }
+    if (email) {
+      updates.push('email = $' + (updates.length + 1));
+      values.push(email);
+    }
+    if (password) {
+      updates.push('password = $' + (updates.length + 1));
+      values.push(password);
+    }
+
+    if (updates.length === 0) {
+      return { error: 'No fields to update.', status: 400 };
+    }
+
+    values.push(id); // Add the ID as the last parameter
+
+    const query = `
+      UPDATE "user"
+      SET ${updates.join(', ')}
+      WHERE "id" = $${values.length}
+      RETURNING *;
     `;
+
+    const data = await sql.unsafe(query, values);
+
     if (process.env.ENV === 'development') {
       console.log('Query result:', data);
     }
+
     return data[0];
   } catch (error) {
     console.error('Database query error:', error);

@@ -31,6 +31,20 @@ export const authConfig: AuthOptions = {
         token.username = user.username;
         token.profile_pic_url = user.profile_pic_url;
       }
+      if (token?.id) {
+    try {
+      const dbUser = await sql`
+        SELECT id, email, username, profile_pic_url FROM "user" WHERE id = ${token.id}
+      `;
+      if (dbUser?.length) {
+        token.email = dbUser[0].email;
+        token.username = dbUser[0].username;
+        token.profile_pic_url = dbUser[0].profile_pic_url;
+      }
+    } catch (err) {
+      console.error('Failed to refresh user in JWT callback:', err);
+    }
+  }
       console.log('JWT callback:', token);
       return token;
     },
