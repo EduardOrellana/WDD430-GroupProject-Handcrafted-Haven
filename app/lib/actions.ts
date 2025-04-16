@@ -70,3 +70,47 @@ export async function createReview(prevState: State, formData: FormData) {
     };
   }
 }
+
+export async function editProduct(formData: FormData) {
+  const data = {
+    name: formData.get('name') as string,
+    description: formData.get('description') as string,
+    price: parseFloat(formData.get('price') as string),
+    categoryId: parseInt(formData.get('category') as string),
+    productId: parseInt(formData.get('productId') as string),
+  };
+
+  console.log('Form Data:', data);
+
+  if (!data.name || !data.description || isNaN(data.price) || isNaN(data.categoryId) || isNaN(data.productId)) {
+    return { message: "fail validations" };
+  }
+
+  try {
+    await sql`
+      UPDATE product
+      SET 
+        name = ${data.name}, 
+        description = ${data.description}, 
+        price = ${data.price}, 
+        category_id = ${data.categoryId}
+      WHERE id = ${data.productId};
+    `;
+
+    revalidatePath(`/users/product/${data.productId}/edit`);
+    
+    // Devuelve la redirección de forma correcta
+    return {
+      redirect: `/users/product/${data.productId}`,
+    };
+  } catch (error) {
+    console.error('Database Error:', error);
+    return {
+      message: `Database Error: Failed to Update Product. ${error}`,
+    };
+  }
+}
+
+export async function DeleteProduct(form: FormData) {
+
+}

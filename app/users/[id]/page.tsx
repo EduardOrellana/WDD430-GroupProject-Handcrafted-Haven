@@ -1,9 +1,10 @@
-import { profileObject } from "@/app/lib/temporalData";
-import styles from "./page.module.css";
-import Image from "next/image";
-import { productsObject } from "@/app/lib/temporalData";
-import Link from "next/link";
-import { getUserById, productSearchByUser } from "@/app/lib/data";
+import styles from './page.module.css';
+import Image from 'next/image';
+import Link from 'next/link';
+import { getUserById, productSearchByUser } from '@/app/lib/data';
+import { getServerSession } from 'next-auth';
+import { authConfig } from '@/auth.config';
+import { User } from '@/app/lib/definitions';
 
 export default async function SellerProfile({
   params,
@@ -16,6 +17,11 @@ export default async function SellerProfile({
     email: string;
     profile_pic_url: string;
   };
+
+  //Sesions data
+
+  const session = await getServerSession(authConfig);
+  const currentUser = session?.user.id as string;
 
   const data = await productSearchByUser(id);
 
@@ -52,17 +58,11 @@ export default async function SellerProfile({
     );
   }
 
+  console.log('id in params', id);
+  console.log('current User', currentUser);
+
   return (
     <>
-      {/*
-<div className={styles.sellerProfile}>
-
-        <h2>Seller Profile</h2>
-        <div className={styles.profileCard}>
-
-        </div>
-      </div>
-      */}
       <h2>Products by {profile?.username}</h2>
       <div className={styles.productlist}>
         {products.map((product, index) => (
@@ -81,8 +81,18 @@ export default async function SellerProfile({
               href={`/users/product/${product.id}`}
               className={styles.productLink}
             >
-              view details
+              View details
             </Link>
+
+            {/* Button to edit the product. */}
+            {currentUser == id && (
+              <Link
+                href={`/users/product/${product.id}/edit`}
+                className={styles.productLink}
+              >
+                Edit Product
+              </Link>
+            )}
           </div>
         ))}
       </div>
