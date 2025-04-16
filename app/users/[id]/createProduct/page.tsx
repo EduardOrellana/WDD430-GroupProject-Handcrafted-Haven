@@ -3,9 +3,7 @@ import { authConfig } from '@/auth.config';
 import { getCategories } from '@/app/lib/data';
 import CreateForm from './CreateProductForm';
 
-export default async function CreateProductPage(props: {
-  params: { id: string };
-}) {
+export default async function CreateProductPage() {
   const session = await getServerSession(authConfig);
 
   if (!session?.user) {
