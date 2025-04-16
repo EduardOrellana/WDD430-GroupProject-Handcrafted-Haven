@@ -23,7 +23,8 @@ const nextConfig: NextConfig = {
       "christopherthomsonironworks.com",
       "d2ma7w4w9grdob.cloudfront.net",
       "www.erstwilder.com",
-      "cdn1.iconfinder.com"
+      "cdn1.iconfinder.com",
+      "cdn0.iconfinder.com"
       ],
   }
 };

@@ -1,5 +1,6 @@
 "use server";
 import postgres from "postgres";
+import bcryptjs from "bcryptjs";
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
@@ -111,6 +112,35 @@ export async function editProduct(formData: FormData) {
   }
 }
 
-export async function DeleteProduct(form: FormData) {
+export async function createAccount(formData: FormData) {
+  const data = {
+    name: formData.get("name") as string,
+    email: formData.get("email") as string,
+    password: formData.get("password") as string,
+  };
 
+  if (!data.name || !data.email || !data.password) {
+    return { message: "fail validations" };
+  }
+
+  try {
+    const hashedPassword = await bcryptjs.hash(data.password, 10); // 10 salt rounds
+
+    await sql`
+      INSERT INTO "user" (username, email, password, profile_pic_url)
+      VALUES (
+        ${data.name}, 
+        ${data.email}, 
+        ${hashedPassword}, 
+        ${"https://cdn0.iconfinder.com/data/icons/user-pictures/100/matureman1-512.png"}
+      );
+    `;
+
+    revalidatePath("/login");
+    redirect("/login");
+    return { message: "success" };
+  } catch (error) {
+    console.log(error);
+    return { message: `Database Error: Failed to Create Account. ${error}` };
+  }
 }
