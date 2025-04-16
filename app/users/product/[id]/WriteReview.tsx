@@ -51,7 +51,7 @@ export default function WriteReview({
           id={"content"}
           name={"content"}
           onChange={(e) => setReview(e.target.value)}
-          rows="4"
+          rows={4}
         />
         <input type="hidden" id={"rating"} name={"rating"} value={rating} />
 
