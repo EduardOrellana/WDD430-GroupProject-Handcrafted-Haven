@@ -30,7 +30,8 @@ function LoginFormComponent() {
         setErrorMessage(result.error);
       } else {
         setErrorMessage(null);
-        router.push('/');
+        router.push(returnUrl);
+        router.refresh();
       }
     } catch (error) {
       console.error('Failed to authenticate:', error);
