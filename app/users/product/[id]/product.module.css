@@ -130,3 +130,36 @@
 .reviewButton:hover:not(:disabled) {
   background-color: #45a049;
 }
+
+.reviewCard {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+
+.reviewHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reviewHeader h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.reviewDate {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.reviewComment {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: #444;
+}

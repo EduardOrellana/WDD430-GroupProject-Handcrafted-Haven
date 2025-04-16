@@ -41,9 +41,12 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
           {Array.isArray(reviews) && reviews.length > 0 ? (
             reviews.map((review) => (
               <div key={review.id} className={styles.reviewCard}>
-                <h4>{review.author}</h4>
-                <p>{review.title}</p>
-                <p>{review.text}</p>
+                <div className={styles.reviewHeader}>
+                  <h3>{review.author}</h3>
+                  <span className={styles.reviewDate}>
+                    {new Date(review.date).toLocaleDateString()}
+                  </span>
+                </div>
                 {Array(review.rating)
                   .fill(0)
                   .map((star, index) => (
@@ -54,7 +57,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
                       ★
                     </span>
                   ))}
-                <p>Date: {new Date(review.date).toLocaleDateString()}</p>
+                <p className={styles.reviewComment}>{review.text}</p>
               </div>
             ))
           ) : (
