@@ -82,9 +82,9 @@ export async function editProduct(formData: FormData) {
 
   console.log('Form Data:', data);
 
-  if (!data.name || !data.description || isNaN(data.price) || isNaN(data.categoryId) || isNaN(data.productId)) {
-    return { message: "fail validations" };
-  }
+  // if (!data.name || !data.description || isNaN(data.price) || isNaN(data.categoryId) || isNaN(data.productId)) {
+  //   return { message: "fail validations" };
+  // }
 
   try {
     await sql`

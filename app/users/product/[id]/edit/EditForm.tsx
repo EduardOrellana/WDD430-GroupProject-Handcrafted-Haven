@@ -14,7 +14,7 @@ export default function EditForm({
         name: string;
         description: string;
         price: number;
-        category: number;
+        category: number | string;
     };
     productId: number | string;
     categories: { id: number; name: string }[];
