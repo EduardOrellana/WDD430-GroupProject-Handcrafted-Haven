@@ -234,5 +234,47 @@
   .linksContainer { grid-area: linksContainer; }
   
 
+  .categoryList{
+    max-height: 600px; /* Ajusta a lo que quieras */
+    overflow-y: auto;
+    padding: 0;
+    margin: 10px 0;
+    list-style: none;
+    border: 1px solid black;
+    border-radius: 4px;
+    background-color: #fff;
+  }
+
+  .categoryList li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+  }
+
+
+  .categoryList li:last-child {
+    border-bottom: none;
+  }
+
+  .sellersList{
+    max-height: 450px; /* Ajusta a lo que quieras */
+    overflow-y: auto;
+    padding: 0;
+    margin: 10px 0;
+    list-style: none;
+    border: 1px solid black;
+    border-radius: 4px;
+    background-color: #fff;
+  }
+
+  .sellersList li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .sellersList li:last-child {
+    border-bottom: none;
+  }
+
+  
 }
 

@@ -20,7 +20,6 @@ export default function WriteReview({
   const [isEnable, setEnable] = useState(false);
   const [hoverRating, setHoverRating] = useState(0);
   const [review, setReview] = useState("");
-  //const router = useRouter();
 
   const initialState: State = { message: null };
   const [state, formAction] = useActionState(createReview, initialState);

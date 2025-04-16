@@ -1,90 +1,98 @@
 .productDetail {
   display: flex;
+  flex-wrap: wrap;
   max-width: 1200px;
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fafafa;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  gap: 2rem;
+  transition: all 0.3s ease-in-out;
+  flex-direction: column;
+}
+
+.containerImageInfo {
+  display: flex;
+  gap: 2rem;
+  width: 100%;
 }
 
 .producImage img {
-  max-width: 300px;
+  width: 100%;
+  max-width: 450px;
   height: auto;
-  border-radius: 8px;
-  margin-right: 20px;
+  border-radius: 16px;
+  object-fit: cover;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.producImage img:hover {
+  transform: scale(1.03);
 }
 
 .productInfo {
   flex: 1;
-  margin-left: 15px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .productName {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #333;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #1e1e1e;
 }
 
 .productPrice {
-  font-size: 1.5rem;
-  color: #28a745;
-  margin: 10px 0;
+  font-size: 2rem;
+  color: #27ae60;
+  font-weight: 600;
 }
 
 .productRating {
-  font-size: 1.2rem;
-  color: #ff9800;
+  font-size: 1.3rem;
+  color: #f1c40f;
 }
 
 .productDescription {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: #555;
-  margin: 15px 0;
-}
-
-.productReviews {
-  margin-top: 20px;
+  line-height: 1.7;
 }
 
 .productReviews h3 {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-}
-
-.review {
-  margin-bottom: 15px;
-}
-
-.reviewText {
-  font-size: 1rem;
-  font-style: italic;
-  color: #444;
-}
-
-.reviewAuthor {
-  font-size: 0.9rem;
-  font-weight: bold;
-  color: #555;
+  font-size: 1.5rem;
+  color: #333;
+  margin-top: 1.5rem;
 }
 
 .reviewContainer {
-  max-width: 400px;
-  margin: 20px auto;
-  padding: 20px;
-  background: #f8f8f8;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.3s ease;
+}
+
+.reviewContainer:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
 .reviewContainer h2 {
   text-align: center;
-  margin-bottom: 15px;
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  color: #444;
 }
 
 .starRating {
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 1rem;
 }
 
 .star {
@@ -98,48 +106,56 @@
   color: #ffc107;
 }
 
-
-
 .input {
   width: 100%;
-  padding: 10px;
+  padding: 14px;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  resize: none;
-  margin-bottom: 15px;
+  border-radius: 10px;
+  font-size: 1rem;
   font-family: inherit;
+  margin-bottom: 1.2rem;
+  transition: border-color 0.3s ease;
+}
+
+.input:focus {
+  border-color: #27ae60;
+  outline: none;
 }
 
 .reviewButton {
   width: 100%;
-  padding: 10px;
-  background-color: #4caf50;
+  padding: 14px;
+  background-color: #27ae60;
   color: white;
   font-weight: bold;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 
 .reviewButton:disabled {
-  background-color: #aaa;
+  background-color: #bbb;
   cursor: not-allowed;
 }
 
 .reviewButton:hover:not(:disabled) {
-  background-color: #45a049;
+  background-color: #219150;
 }
 
 .reviewCard {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  background-color: #fff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  background-color: #ffffff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease;
 }
 
+.reviewCard:hover {
+  transform: scale(1.01);
+}
 
 .reviewHeader {
   display: flex;
@@ -149,17 +165,39 @@
 
 .reviewHeader h3 {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   color: #333;
 }
 
 .reviewDate {
   font-size: 0.9rem;
-  color: #888;
+  color: #999;
 }
 
 .reviewComment {
-  margin-top: 0.5rem;
-  font-size: 1rem;
+  margin-top: 0.8rem;
+  font-size: 1.05rem;
   color: #444;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .productDetail {
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+
+  .containerImageInfo {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .producImage img {
+    max-width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  .productInfo {
+    padding: 0;
+  }
 }
