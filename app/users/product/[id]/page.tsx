@@ -24,18 +24,20 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
 
   return (
     <>
+      <div className={styles.containerImageInfo}>
       <div className={styles.productImage}>
         <Image
           src={product.images[0]}
           alt={product.name}
           width={600}
-          height={1200}
+          height={600}
         />
       </div>
       <div className={styles.productInfo}>
         <h2 className={styles.productName}>{product.name}</h2>
         <p className={styles.productPrice}>${product.price}</p>
         <p className={styles.productDescription}>{product.description}</p>
+        <p className={styles.productCategory}>Category: {product.category}</p>
         <div className={styles.productReviews}>
           <h3>Customer Reviews</h3>
           {Array.isArray(reviews) && reviews.length > 0 ? (
@@ -64,9 +66,10 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
             <p>No reviews available</p>
           )}
         </div>
-        {/* Pass ProductId to ButtonToEdit */}
-
-        {session?.user?.id && (
+      </div>
+      </div>
+      <div className={styles.reviews}>
+      {session?.user?.id && (
           <WriteReview userId={session?.user?.id} productId={product.id} />
         )}
       </div>
