@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from './buttom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 import { signIn } from 'next-auth/react';
@@ -9,9 +9,18 @@ import { signIn } from 'next-auth/react';
 function LoginFormComponent() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isPending, setIsPending] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const returnUrl = searchParams?.get('returnUrl') || '/profile';
+  const returnUrl = searchParams
+    ? searchParams.get('returnUrl') || '/profile'
+    : '/profile';
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push(returnUrl);
+    }
+  }, [isAuthenticated, returnUrl, router]);
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -30,8 +39,7 @@ function LoginFormComponent() {
         setErrorMessage(result.error);
       } else {
         setErrorMessage(null);
-        router.push(returnUrl);
-        router.refresh();
+        window.location.href = returnUrl;
       }
     } catch (error) {
       console.error('Failed to authenticate:', error);
@@ -86,7 +94,7 @@ function LoginFormComponent() {
         <div>
           {errorMessage && (
             <>
-              <p className="text-red-500">{errorMessage}</p>
+              <p>{errorMessage}</p>
             </>
           )}
         </div>
