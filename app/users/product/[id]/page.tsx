@@ -26,12 +26,19 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     <>
       <div className={styles.containerImageInfo}>
       <div className={styles.productImage}>
-        <Image
-          src={product.images[0]}
-          alt={product.name}
-          width={600}
-          height={600}
-        />
+        {product.image ? (
+          <Image
+            src={product.image}
+            alt={product.name}
+            width={150}
+            height={150}
+            priority
+          />
+        ) : (
+          <div style={{ width: 150, height: 150, background: '#ccc' }}>
+            No image
+          </div>
+          )}
       </div>
       <div className={styles.productInfo}>
         <h2 className={styles.productName}>{product.name}</h2>

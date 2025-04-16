@@ -48,13 +48,19 @@ export default async function UserProductListByCategory({
       <div className={styles.productlist}>
         {list.map((product: any, index: any) => (
           <div className={styles.productCard} key={index}>
-            <Image
-              src={product.images[0]}
-              alt={product.name}
-              width={150}
-              height={150}
-              priority
-            />
+            {product.image ? (
+              <Image
+                src={product.image}
+                alt={product.name}
+                width={150}
+                height={150}
+                priority
+              />
+            ) : (
+              <div style={{ width: 150, height: 150, background: '#ccc' }}>
+                No image
+              </div>
+            )}
             <h3>{product.name}</h3>
             <p>{product.description}</p>
             <span className={styles.price}>{`$${product.price}`}</span>
