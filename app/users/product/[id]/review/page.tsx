@@ -1,3 +1,7 @@
-export default async function Page() {
-  return <>pagina para agregar un review a un producto.</>;
+//import ReviewForm from '../../../../components/ReviewForm';
+
+export default async function Page({params}: {params: Promise<{ id: string }>}) {
+  const { id } = await params;
+  return <></>
+  //return <ReviewForm productId={id} />;
 }
