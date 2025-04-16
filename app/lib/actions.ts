@@ -1,6 +1,5 @@
 "use server";
 import postgres from "postgres";
-
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
 import { signIn } from "next-auth/react";
@@ -68,5 +67,27 @@ export async function createReview(prevState: State, formData: FormData) {
     return {
       message: `Database Error: Failed to Create Invoice. ${error}`,
     };
+  }
+}
+
+export async function createAcc(username: string, email: string, password: string, profilePicUrl: string) {
+  try {
+    const response = await fetch('/api/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, email, password, profile_pic_url: profilePicUrl }),
+    });
+
+    const data = await response.json();
+
+    if (data.message === 'success') {
+      return { message: 'success' };
+    } else {
+      throw new Error(data.message);
+    }
+  } catch (error) {
+    return { error: (error as Error).message };
   }
 }
