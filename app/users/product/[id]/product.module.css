@@ -1,69 +1,96 @@
-.productDetail {
+/* Contenedor general */
+.productImage {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   max-width: 1200px;
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin: 2rem auto 1rem;
 }
 
-.producImage img {
-  max-width: 300px;
+/* Imagen del producto */
+.productImage img {
+  max-width: 100%;
   height: auto;
-  border-radius: 8px;
-  margin-right: 20px;
+  border-radius: 12px;
+  object-fit: cover;
 }
 
+/* Info del producto */
 .productInfo {
-  flex: 1;
-  margin-left: 15px;
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .productName {
   font-size: 2rem;
-  font-weight: bold;
-  color: #333;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 0.5rem;
 }
 
 .productPrice {
-  font-size: 1.5rem;
-  color: #28a745;
-  margin: 10px 0;
-}
-
-.productRating {
-  font-size: 1.2rem;
-  color: #ff9800;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #38a169;
 }
 
 .productDescription {
   font-size: 1rem;
-  color: #555;
-  margin: 15px 0;
+  color: #4a5568;
+  line-height: 1.6;
 }
 
+/* Reseñas */
 .productReviews {
-  margin-top: 20px;
+  margin-top: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .productReviews h3 {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
+  font-size: 1.4rem;
+  color: #2b6cb0;
+  margin-bottom: 1rem;
+  text-align: center;
 }
 
-.review {
-  margin-bottom: 15px;
+.reviewCard {
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 1rem;
 }
 
-.reviewText {
+.reviewCard h4 {
   font-size: 1rem;
-  font-style: italic;
-  color: #444;
+  font-weight: bold;
+  color: #2d3748;
+  margin-bottom: 0.25rem;
 }
 
-.reviewAuthor {
-  font-size: 0.9rem;
+.reviewCard p {
+  font-size: 0.95rem;
+  color: #4a5568;
+  margin: 0.25rem 0;
+}
+
+/* Error */
+.error {
+  color: red;
+  text-align: center;
+  margin: 2rem;
+  font-size: 1.2rem;
   font-weight: bold;
-  color: #555;
 }

@@ -30,3 +30,14 @@ export async function authenticate(
     throw error;
   }
 }
+
+export async function EditProduct(formData: FormData) {
+  const data = {
+    name: formData.get('name'),
+    description: formData.get('description'),
+    price: formData.get('price'),
+    category: formData.get('category'),
+  }
+
+  console.log('Form Data:', data);
+}

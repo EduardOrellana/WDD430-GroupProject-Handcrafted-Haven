@@ -452,14 +452,18 @@ export async function getProductReviewById(product_id: number) {
   }
 }
 
-export async function updateProductById(id: number, name: string, price: number, description: string, images: string[]) {
+export async function updateProductById(id: number, name: string, price: number, description: string, 
+  // images: string[]
+) {
   try {
     if (!process.env.POSTGRES_URL) {
       console.error('POSTGRES_URL environment variable is not defined.');
       return { error: 'Database connection string is missing.', status: 500 };
     }
     const data = await sql`
-      UPDATE "product" SET name = ${name}, price = ${price}, description = ${description}, images = ${images} WHERE "id" = ${id};
+      UPDATE "product" SET name = ${name}, price = ${price}, description = ${description}, 
+      -- images = /
+      WHERE "id" = ${id};
     `;
     if (process.env.ENV === 'development') {
       console.log('Query result:', data);

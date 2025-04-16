@@ -3,8 +3,7 @@ import { productSearchByUser, getProductById } from '@/app/lib/data';
 import { authConfig } from '@/auth.config';
 import { User } from '@/app/lib/definitions';
 import Link from 'next/link';
-import styles from './ButtonToEdit.module.css';
- // Ensure the file name matches the actual CSS module file
+import styles from '@/app/users/product/[id]/edit/edit.module.css'; 
 
 export default async function ButtonEditProduct({
   params,
@@ -13,9 +12,13 @@ export default async function ButtonEditProduct({
 }) {
   const session = await getServerSession(authConfig);
   const { ProductId } = params;
-  const { id } = session?.user as User;
-
+  const { id } = session?.user ? session.user as User : { id: 'noLog' };
+  
   console.log('User Id:', id);
+
+  if (id === 'noLog') {
+    return <>Please Log in to View more Actions</>
+  }
 
   const data = await productSearchByUser(id);
 

@@ -1,7 +1,7 @@
 import styles from '@/app/users/product/[id]/product.module.css';
 import Image from 'next/image';
 import { getProductById, getProductReviewById } from '@/app/lib/data';
-import ButtonToEdit from './edit/ButtonToEdit';
+import ButtonToEdit from '@/app/ui/ButtonToEdit';
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
