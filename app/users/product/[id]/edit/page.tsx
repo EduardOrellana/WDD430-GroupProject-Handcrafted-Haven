@@ -3,9 +3,7 @@ import { authConfig } from '@/auth.config';
 import { getProductById, getCategories } from '@/app/lib/data';
 import EditForm from './EditForm';
 
-export default async function EditProductPage(
-  props
-: {
+export default async function EditProductPage(props: {
   params: Promise<{ id: string }>;
 }) {
   const session = await getServerSession(authConfig);
@@ -17,6 +15,18 @@ export default async function EditProductPage(
 
   const productId = parseInt(params.id);
   const product = await getProductById(productId);
+
+  if (product?.owner_id !== session.user.id) {
+    return <div>You do not have permission to edit this product.</div>;
+  }
+  if (product?.error) {
+    console.error('Error fetching product:', product.error);
+    return <div>Error loading product</div>;
+  }
+  if (!product) {
+    return <div>Product not found</div>;
+  }
+
   const categories = await getCategories();
 
   // Crear un conjunto único de categorías si es necesario
@@ -25,7 +35,7 @@ export default async function EditProductPage(
     console.error('Expected categories to be an array, but got:', categories);
     return <div>Error loading categories</div>;
   }
-  
+
   const uniqueCategories = categories.map((cat) => ({
     id: cat.id,
     name: cat.name,
