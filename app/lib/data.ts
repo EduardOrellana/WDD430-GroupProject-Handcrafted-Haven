@@ -245,7 +245,7 @@ export async function productSearchByUser(user_id: number | string) {
     if (data.length === 0) {
       return { msg: 'Products not found', status: 404 };
     }
-    if (data.length > 1) {
+    if (data.length >= 1) {
       return data;
     }
   } catch (error) {
