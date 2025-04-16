@@ -3,7 +3,7 @@ import styles from '../page.module.css';
 export default function Footer() {
   return (
     <footer className={styles.footer}>
-      Heavenly Haven Est 2025 Team 15 Members
+      Heavenly Haven Est 2025
       <p>Ignacio Marenco de los Santos</p>
       <p>Johann Helaman Tellez Rodriguez</p>
       <p>Victor Manual Malpica Castro</p>
