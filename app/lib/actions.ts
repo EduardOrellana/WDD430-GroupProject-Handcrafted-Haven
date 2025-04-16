@@ -144,3 +144,40 @@ export async function createAccount(formData: FormData) {
     return { message: `Database Error: Failed to Create Account. ${error}` };
   }
 }
+
+export async function createProduct(formData: FormData) {
+  const data = {
+    name: formData.get("name") as string,
+    description: formData.get("description") as string,
+    price: parseFloat(formData.get("price") as string),
+    categoryId: parseInt(formData.get("category") as string),
+    userId: parseInt(formData.get("user_id") as string),
+  };
+
+  // Validate required fields
+  if (
+    !data.name ||
+    !data.description ||
+    isNaN(data.price) ||
+    isNaN(data.categoryId) ||
+    isNaN(data.userId)
+  ) {
+    return { message: "Validation failed: Missing or invalid fields." };
+  }
+
+  try {
+    // Insert the new product into the database
+    await sql`
+      INSERT INTO product (name, price, description, user_id, category_id, images)
+      VALUES (${data.name}, ${data.price}, ${data.description}, ${data.userId}, ${data.categoryId}, ${'{}'});
+    `;
+
+    // Revalidate and redirect to the user's product list
+    revalidatePath(`/users/${data.userId}`);
+    redirect(`/users/${data.userId}`);
+    return { message: "success" };
+  } catch (error) {
+    console.error("Database Error:", error);
+    return { message: `Database Error: Failed to create product. ${error}` };
+  }
+}

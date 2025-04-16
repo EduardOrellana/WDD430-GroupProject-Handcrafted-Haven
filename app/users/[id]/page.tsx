@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { getUserById, productSearchByUser } from '@/app/lib/data';
 import { getServerSession } from 'next-auth';
 import { authConfig } from '@/auth.config';
-import { User } from '@/app/lib/definitions';
+import ButtonCreateProduct from './createProduct/ButtonCreateProduct';
 
 export default async function SellerProfile({
   params,
@@ -23,7 +23,11 @@ export default async function SellerProfile({
   const session = await getServerSession(authConfig);
   const currentUser = session?.user.id as string;
 
-  const data = await productSearchByUser(id);
+  const data = await productSearchByUser(parseInt(id));
+
+  console.log('data', data);
+  console.log('id in params', id);
+  console.log('current User', currentUser);
 
   const list: {
     name: string;
@@ -41,6 +45,16 @@ export default async function SellerProfile({
     images: string[];
   }[];
 
+  if (!Array.isArray(list)) {
+    console.error('Expected list to be an array, but got:', list);
+    return (
+    <>
+        <div className={styles.productlist}>You do not have products yet.</div>
+        <ButtonCreateProduct userId={id}/>
+    </>
+  );
+  }
+
   const products = await list.map((product) => ({
     id: product.id,
     name: product.name,
@@ -53,6 +67,7 @@ export default async function SellerProfile({
   if (products.length === 0) {
     return (
       <div className={styles.productlist}>
+        <ButtonCreateProduct userId={id}/>
         <h2>No products found</h2>
       </div>
     );
@@ -64,9 +79,11 @@ export default async function SellerProfile({
   return (
     <>
       <h2>Products by {profile?.username}</h2>
+      <ButtonCreateProduct userId={id}/>
       <div className={styles.productlist}>
         {products.map((product, index) => (
           <div className={styles.productCard} key={index}>
+          {product.image ? (
             <Image
               src={product.image}
               alt={product.name}
@@ -74,6 +91,11 @@ export default async function SellerProfile({
               height={150}
               priority
             />
+          ) : (
+            <div style={{ width: 150, height: 150, background: '#ccc' }}>
+              No image
+            </div>
+          )}
             <h3>{product.name}</h3>
             <p>{product.description}</p>
             <span className={styles.price}>{product.price}</span>

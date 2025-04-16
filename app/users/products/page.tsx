@@ -85,13 +85,19 @@ export default async function UserProdutList({
             href={`/users/product/${product.id}`}
             className={styles.productLink}
           >
-            <Image
-              src={product.image}
-              alt={product.name}
-              width={150}
-              height={150}
-              priority
-            />
+            {product.image ? (
+              <Image
+                src={product.image}
+                alt={product.name}
+                width={150}
+                height={150}
+                priority
+              />
+            ) : (
+              <div style={{ width: 150, height: 150, background: '#ccc' }}>
+                No image
+              </div>
+            )}
             <h3>{product.name}</h3>
             <p>{product.description}</p>
             <span className="price">{`$${product.price}`}</span>
