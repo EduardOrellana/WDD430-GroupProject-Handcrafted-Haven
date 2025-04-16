@@ -25,7 +25,7 @@ export default async function CreateProductPage() {
   return (
     <CreateForm
       categories={uniqueCategories}
-      userId={session.user.id} // Pass the logged-in user's ID
+      userId={session.user.id} 
     />
   );
 }
