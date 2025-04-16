@@ -1,9 +1,12 @@
+/*
 "use client";
 
 import { getSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { getProductById, updateProductById, deleteProductById } from '@/app/lib/data';
+
+
 
 export default function EditProductPage() {
   const router = useRouter();
@@ -137,4 +140,11 @@ export default function EditProductPage() {
       <button type="button" onClick={handleDelete}>Delete Product</button>
     </>
   );
+}
+
+*/
+
+export default function EditProductPage() {
+
+  return <></>
 }
