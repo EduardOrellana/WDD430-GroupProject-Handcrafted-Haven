@@ -12,6 +12,7 @@
     "@auth/core": "^0.38.0",
     "@simplewebauthn/server": "^13.1.1",
     "@simplewebauthn/types": "^12.0.0",
+    "bcrypt": "^5.1.1",
     "bcryptjs": "^3.0.2",
     "clsx": "^2.1.1",
     "cookie": "^1.0.2",
@@ -38,6 +39,9 @@
   "pnpm": {
     "onlyBuiltDependencies": [
       "sharp"
+    ],
+    "ignoredBuiltDependencies": [
+      "bcrypt"
     ]
   }
 }
