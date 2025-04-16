@@ -30,7 +30,7 @@ function LoginFormComponent() {
         setErrorMessage(result.error);
       } else {
         setErrorMessage(null);
-        router.push(returnUrl); // Ensure redirection happens immediately after successful login
+        router.push('/');
       }
     } catch (error) {
       console.error('Failed to authenticate:', error);
