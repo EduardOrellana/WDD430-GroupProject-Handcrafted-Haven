@@ -9,14 +9,24 @@ export type Product = {
 export default function ProductCard({ product }: { product: Product }) {
   return (
     <div className="border rounded p-4 shadow">
+<<<<<<< HEAD
+      <img src={product.images[0]} alt={product.name} className="w-full h-40 object-cover rounded" />
+=======
       <img
         src={product.images[0]}
         alt={product.name}
         className="w-full h-40 object-cover rounded"
       />
+>>>>>>> f270f2b0ed95a60c6d83a4cc81af5529f9a3deca
       <h3 className="font-bold text-lg mt-2">{product.name}</h3>
       <p>{product.description}</p>
       <p className="text-green-600 font-semibold">${product.price}</p>
     </div>
   );
 }
+<<<<<<< HEAD
+
+
+
+=======
+>>>>>>> f270f2b0ed95a60c6d83a4cc81af5529f9a3deca
